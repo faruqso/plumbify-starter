@@ -1,0 +1,505 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Button from '../components/Button.tsx';
+import ServiceCard from '../components/ServiceCard.astro';
+
+import AboutMediaMotion from '../components/AboutMediaMotion.tsx';
+import TricolorStrip from '../components/TricolorStrip.tsx';
+import ProjectMediaCard from '../components/ProjectMediaCard.astro';
+import { projects } from '../data/projects';
+import { services } from '../data/services';
+import { blogPosts } from '../data/blog';
+import { testimonials } from '../data/testimonials';
+import TestimonialsMarquee from '../components/TestimonialsMarquee';
+
+const heroImage = '/images/home/hero/plumbify-plumber.png';
+const iconTool = '/images/icons/hero-tool.svg';
+const iconArrow = '/images/icons/hero-arrow-circle.svg';
+
+const logo1 = '/images/home/trust/trust-logo-1.svg';
+const logo2 = '/images/home/trust/trust-logo-2.svg';
+const logo3 = '/images/home/trust/trust-logo-3.svg';
+const logo4 = '/images/home/trust/trust-logo-4.svg';
+const aboutImage = '/images/home/about/about-figma.png';
+const aboutPipe = '/images/home/about/about-pipe.svg';
+const whyImage = '/images/home/why/why-panel.png';
+const whyEllipse = '/images/home/why/why-ellipse.svg';
+const whyLine = '/images/home/why/why-line.svg';
+const whyPipe = '/images/home/why/why-pipe.svg';
+const servicePipe = '/images/home/about/about-pipe.svg';
+const offerBg = '/images/home/offer/offer-figma.png';
+const offerPipe = '/images/home/offer/offer-pipe.svg';
+const offerArrow = '/images/home/offer/offer-arrow.svg';
+const offerLine = '/images/home/offer/offer-line.svg';
+const projectsPipe = '/images/home/about/about-pipe.svg';
+const testimonialBg = '/images/home/trust/trust-logo-1.svg';
+const testimonialPipe = '/images/home/about/about-pipe.svg';
+const blogImage = '/images/projects/kitchen-faucet-repair.webp';
+const blogPipe = '/images/home/about/about-pipe.svg';
+---
+
+<BaseLayout
+  title="Day 3 Plumbing Starter"
+  description="A blank Astro starter for a plumbing service site."
+>
+  <section class="hero interactive-grid-hero">
+    <Container>
+      <div class="hero__layout">
+        <div class="hero__copy">
+          <div class="hero__heading stack">
+            <h1>
+              <span class="hero__line">Your <span>Reliable</span></span>
+              <span class="hero__line"><span>Plumber</span> Partner</span>
+              <span class="hero__line">with Plumbify</span>
+            </h1>
+            <p class="hero__lede">
+              Plumbify offers reliable plumbing services that cater to all your plumbing needs.
+              From simple pipe repairs to complex installations.
+            </p>
+          </div>
+
+          <div class="hero__services">
+            <div class="hero__services-head">
+              <span class="hero__service-icon">
+                <img alt="" src={iconTool} />
+              </span>
+              <p>Our Services</p>
+            </div>
+
+            <div class="hero__services-list" aria-label="Services">
+              <div class="hero__service-item">
+                <img alt="" src={iconArrow} />
+                <span>Plumbing Repairs</span>
+              </div>
+              <div class="hero__service-item">
+                <img alt="" src={iconArrow} />
+                <span>Plumbing Installations</span>
+              </div>
+              <div class="hero__service-item">
+                <img alt="" src={iconArrow} />
+                <span>Water Heater Services</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__art">
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero__art-bg"></div>
+            <img alt="" class="hero__person" src={heroImage} />
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="social-proof">
+    <Container>
+      <div class="social-proof__content">
+        <p>Trusted by millions of customers.</p>
+        <div class="social-proof__marquee" aria-label="Trusted by logos">
+          <div class="social-proof__track">
+            <div class="social-proof__logos">
+              <img alt="" src={logo1} />
+              <img alt="" src={logo2} />
+              <img alt="" src={logo3} />
+              <img alt="" src={logo4} />
+            </div>
+            <div class="social-proof__logos" aria-hidden="true">
+              <img alt="" src={logo1} />
+              <img alt="" src={logo2} />
+              <img alt="" src={logo3} />
+              <img alt="" src={logo4} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <div class="about-why-transition">
+    <section class="about">
+      <Container>
+        <div class="about__layout">
+          <AboutMediaMotion client:load image={aboutImage} imageAlt="Plumbify plumber repairing a kitchen sink" />
+          <div class="about__copy">
+            <div class="about__eyebrow">
+              <img alt="" src={aboutPipe} />
+              <p>About Us</p>
+            </div>
+            <h2>Experience Expert Plumbing Services</h2>
+            <p>
+              At Plumbify, we understand the importance of having a reliable plumbing system. That's
+              why we're committed to providing our clients with top-quality plumbing services they
+              can trust.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="why">
+      <div class="why__decor" aria-hidden="true">
+        <img alt="" src={whyEllipse} />
+      </div>
+      <Container>
+        <div class="why__title">
+          <div class="why__eyebrow">
+            <img alt="" src={whyPipe} />
+            <p>Why Choose Us</p>
+          </div>
+          <h2>Your Best Choice for Plumbing Solutions</h2>
+        </div>
+        <div class="why__fact">
+          <strong>25 <span>+</span></strong>
+          <p>Years of Experience</p>
+        </div>
+        <div class="why__image">
+          <img alt="" src={whyImage} />
+        </div>
+        <div class="why__benefits">
+          <article class="why__benefit">
+            <h3>Expertise &amp; Experience</h3>
+            <p>Our seasoned plumbers bring deep expertise to every job, diagnosing issues quickly and delivering dependable solutions.</p>
+          </article>
+          <div class="why__divider" aria-hidden="true"><img alt="" src={whyLine} /></div>
+          <article class="why__benefit">
+            <h3>Quality Workmanship</h3>
+            <p>We take pride in precise, durable work using proven methods and quality materials that stand the test of time.</p>
+          </article>
+          <div class="why__divider" aria-hidden="true"><img alt="" src={whyLine} /></div>
+          <article class="why__benefit">
+            <h3>Transparent Pricing</h3>
+            <p>Clear, upfront estimates keep you informed, with no hidden costs or surprises when the work is complete.</p>
+          </article>
+        </div>
+      </Container>
+    </section>
+  </div>
+
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const motion = gsap.matchMedia();
+
+    motion.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
+      const about = document.querySelector<HTMLElement>('.about-why-transition .about');
+      const why = document.querySelector<HTMLElement>('.about-why-transition .why');
+
+      if (!about || !why) return;
+
+      gsap.set(why, {
+        scale: 0.8,
+        transformOrigin: '50% 0%',
+        force3D: true
+      });
+
+      const whyImg = why.querySelector<HTMLElement>('.why__image img');
+      let parallax: gsap.core.Tween | undefined;
+      
+      if (whyImg) {
+        gsap.set(whyImg, { yPercent: -15, scale: 1.15 });
+        parallax = gsap.to(whyImg, {
+          yPercent: 15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: why,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        });
+      }
+
+      const pin = ScrollTrigger.create({
+        trigger: about,
+        start: 'top top',
+        endTrigger: why,
+        end: 'top top',
+        pin: about,
+        pinSpacing: false,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      });
+
+      const curtain = gsap.to(why, {
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: why,
+          start: 'top bottom',
+          end: 'top top',
+          scrub: 0.8,
+          invalidateOnRefresh: true
+        }
+      });
+
+      return () => {
+        pin.kill();
+        curtain.scrollTrigger?.kill();
+        curtain.kill();
+        gsap.set(why, { clearProps: 'transform' });
+        
+        if (parallax) {
+          parallax.scrollTrigger?.kill();
+          parallax.kill();
+        }
+        if (whyImg) {
+          gsap.set(whyImg, { clearProps: 'transform' });
+        }
+      };
+    });
+
+    window.addEventListener('pagehide', () => motion.revert(), { once: true });
+  </script>
+
+  <section class="services" id="services">
+    <Container>
+      <div class="services__intro">
+        <div class="about__eyebrow">
+          <img alt="" src={servicePipe} />
+          <p>Our Services</p>
+        </div>
+        <h2>Comprehensive Plumbing Services for Your Need</h2>
+      </div>
+ 
+      <div class="services__grid">
+        {services.slice(0, 3).map((service) => (
+          <ServiceCard
+            image={service.homepageImage}
+            imageAlt={service.homepageImageAlt}
+            imageLoading="eager"
+            imageFetchPriority="high"
+            title={service.cardTitle}
+            description={service.description}
+            price={service.price}
+            href={`/services/${service.slug}`}
+          />
+        ))}
+      </div>
+
+      <div class="services__footer">
+        <Button href="/services" variant="primary">View All Services</Button>
+      </div>
+    </Container>
+  </section>
+
+  <section class="offer">
+    <div class="offer__bg">
+      <img alt="" src={offerBg} />
+    </div>
+    <Container>
+      <div class="offer__card-wrap" data-strip-trigger>
+        <div class="offer__card">
+          <div class="offer__eyebrow">
+            <img alt="" src={offerPipe} />
+            <p>Special Offer</p>
+          </div>
+          <h2>Get Your Plumbing Fixed Today - <span>10% Off</span> Your First Service!</h2>
+          <div class="offer__divider">
+            <img alt="" src={offerLine} />
+          </div>
+          <ul class="offer__list">
+            <li><img alt="" src={offerArrow} />Fast Fixes, Affordable Prices</li>
+            <li><img alt="" src={offerArrow} />Reliable Plumbing Solutions Guaranteed</li>
+            <li><img alt="" src={offerArrow} />Expert Plumbers, Quality Service</li>
+            <li><img alt="" src={offerArrow} />Emergency Services Available 24/7</li>
+            <li><img alt="" src={offerArrow} />Get Your Problems Solved Today!</li>
+          </ul>
+          <Button href="/" variant="primary" className="offer__button">Get Offer!</Button>
+        </div>
+        <TricolorStrip client:load className="offer__rule" />
+      </div>
+    </Container>
+  </section>
+
+  <section class="projects">
+    <Container>
+      <div class="projects__head">
+        <div>
+          <div class="about__eyebrow">
+            <img alt="" src={projectsPipe} loading="lazy" decoding="async" />
+            <p>Gallery</p>
+          </div>
+          <h2>Latest Projects</h2>
+        </div>
+        <p class="projects__lede">
+          Real plumbing challenges, resolved with careful diagnostics, considered workmanship, and a clean finish.
+        </p>
+      </div>
+      <div class="projects__mosaic">
+        <div class="projects__tile projects__tile--portrait">
+          <ProjectMediaCard project={projects[0]} eager />
+          <div class="project-mobile-info">
+            <h3>{projects[0].title}</h3>
+            <p>{projects[0].summary}</p>
+          </div>
+        </div>
+        <div class="projects__tile projects__tile--feature">
+          <ProjectMediaCard project={projects[1]} eager />
+          <div class="project-mobile-info">
+            <h3>{projects[1].title}</h3>
+            <p>{projects[1].summary}</p>
+          </div>
+        </div>
+        <div class="projects__tile projects__tile--small">
+          <ProjectMediaCard project={projects[2]} />
+          <div class="project-mobile-info">
+            <h3>{projects[2].title}</h3>
+            <p>{projects[2].summary}</p>
+          </div>
+        </div>
+        <div class="projects__tile projects__tile--small">
+          <ProjectMediaCard project={projects[3]} />
+          <div class="project-mobile-info">
+            <h3>{projects[3].title}</h3>
+            <p>{projects[3].summary}</p>
+          </div>
+        </div>
+      </div>
+      <div class="projects__footer">
+        <div class="projects__summary" data-project-summary-panel aria-live="polite">
+          <h3>{projects[0].title}</h3>
+          <p>{projects[0].summary}</p>
+        </div>
+        <Button href="/projects" variant="primary">All projects</Button>
+      </div>
+    </Container>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const section = document.querySelector('.projects');
+      const cards = section?.querySelectorAll('[data-project-card]');
+      const panel = section?.querySelector('[data-project-summary-panel]');
+      const title = panel?.querySelector('h3');
+      const summary = panel?.querySelector('p');
+
+      if (!cards?.length || !panel || !title || !summary) return;
+
+      let currentCard = cards[0];
+      let fadeOutAnim = null;
+      let fadeInAnim = null;
+
+      // Mark the initial active card
+      currentCard.classList.add('is-active');
+
+      const showProject = (card) => {
+        const nextTitle = card.dataset.projectTitle;
+        const nextSummary = card.dataset.projectSummary;
+        if (!nextTitle || !nextSummary || title.textContent === nextTitle) return;
+
+        currentCard = card;
+
+        if (fadeOutAnim) fadeOutAnim.cancel();
+        if (fadeInAnim) fadeInAnim.cancel();
+
+        cards.forEach((item) => item.classList.toggle('is-active', item === card));
+
+        // Smooth fade out
+        fadeOutAnim = panel.animate(
+          [
+            { opacity: 1, transform: 'translateY(0)' },
+            { opacity: 0, transform: 'translateY(-0.15rem)' }
+          ],
+          { duration: 120, easing: 'ease-in-out', fill: 'forwards' }
+        );
+
+        fadeOutAnim.onfinish = () => {
+          if (currentCard !== card) return;
+
+          title.textContent = nextTitle;
+          summary.textContent = nextSummary;
+
+          // Smooth fade in
+          fadeInAnim = panel.animate(
+            [
+              { opacity: 0, transform: 'translateY(0.15rem)' },
+              { opacity: 1, transform: 'translateY(0)' }
+            ],
+            { duration: 220, easing: 'ease-in-out', fill: 'forwards' }
+          );
+        };
+      };
+
+      cards.forEach((card) => {
+        card.addEventListener('pointerenter', () => showProject(card));
+        card.addEventListener('focusin', () => showProject(card));
+      });
+    })();
+  </script>
+
+  <section class="testimonials">
+    <div class="testimonials__inner">
+      <!-- Left: Dark brand panel -->
+      <div class="testimonials__panel">
+        <div class="testimonials__panel-content">
+          <div class="about__eyebrow testimonials__eyebrow">
+            <img alt="" src={testimonialPipe} loading="lazy" decoding="async" />
+            <p>Testimonials</p>
+          </div>
+          <h2 class="testimonials__headline">Trusted by Homeowners &amp; Businesses</h2>
+          <p class="testimonials__subline">Real words from real customers. We let the results speak for themselves.</p>
+          <div class="testimonials__aggregate">
+            <div class="testimonials__aggregate-score">
+              <span class="testimonials__aggregate-num">4.9</span>
+              <svg width="22" height="22" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1 10.2,6.2 16,6.9 11.8,10.9 13,16.3 8,13.4 3,16.3 4.2,10.9 0,6.9 5.8,6.2" fill="#f6b613"/></svg>
+            </div>
+            <div class="testimonials__aggregate-meta">
+              <span>Average rating</span>
+              <span>from 200+ verified reviews</span>
+            </div>
+          </div>
+          <div class="testimonials__platforms">
+            <span class="testimonials__platform-badge">Google ✓</span>
+            <span class="testimonials__platform-badge">Trustpilot ✓</span>
+            <span class="testimonials__platform-badge">Houzz ✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Scrolling testimonial cards -->
+      <div class="testimonials__feed">
+        <TestimonialsMarquee client:visible testimonials={testimonials} />
+        <TestimonialsMarquee client:visible testimonials={[...testimonials].reverse()} />
+      </div>
+    </div>
+  </section>
+
+  <section class="blog">
+    <Container>
+      <div class="blog__head">
+        <div class="about__eyebrow">
+          <img alt="" src={blogPipe} loading="lazy" decoding="async" />
+          <p>Our Blog</p>
+        </div>
+        <h2>Stay Up-to-Date with Plumbing Tips and Trends</h2>
+      </div>
+      <div class="blog__cards">
+        {blogPosts.slice(0, 3).map((post) => (
+          <article class="blog-card">
+            <div class="blog-card__image">
+              <img alt="" src={post.image} loading="lazy" decoding="async" />
+              <div class="blog-card__tag">{post.category}</div>
+            </div>
+            <div class="blog-card__content">
+              <p class="blog-card__date">{post.date}</p>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
+              <Button href={`/blog/${post.slug}`} variant="outline" size="sm" className="blog-card__button" tabIndex={-1}>Read More</Button>
+            </div>
+            <a href={`/blog/${post.slug}`} class="blog-card__hit-area" aria-label={`Read more about ${post.title}`}></a>
+          </article>
+        ))}
+      </div>
+      <div class="blog__footer">
+        <Button href="/blog" variant="primary">View All Blogs</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
