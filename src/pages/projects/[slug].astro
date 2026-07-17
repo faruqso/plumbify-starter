@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Button from '../../components/Button.tsx';
+import TricolorStrip from '../../components/TricolorStrip.tsx';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const projectIndex = projects.findIndex((item) => item.slug === project.slug);
+const nextProject = projects[(projectIndex + 1) % projects.length];
+---
+
+<BaseLayout
+  title={`${project.title} | Plumbify Case Study`}
+  description={project.summary}
+  pageClass="project-case-page"
+  headerTopTone="dark"
+>
+  <section class="case-hero">
+    <Container>
+      <a class="case-hero__back" href="/projects"><span aria-hidden="true">←</span> All projects</a>
+      <div class="case-hero__grid">
+        <div>
+          <p class="case-hero__category">{project.category} · {project.year}</p>
+          <h1>{project.title}</h1>
+        </div>
+        <p class="case-hero__summary">{project.summary}</p>
+      </div>
+      <dl class="case-hero__facts">
+        <div><dt>Location</dt><dd>{project.location}</dd></div>
+        <div><dt>Duration</dt><dd>{project.duration}</dd></div>
+        <div><dt>Services</dt><dd>{project.services.length} disciplines</dd></div>
+      </dl>
+    </Container>
+  </section>
+
+  <section class="case-feature">
+    <Container>
+      <div class="case-feature__media" data-strip-trigger>
+        <div><img src={project.image} alt={`${project.title} completed by Plumbify`} style={`object-position:${project.imagePosition ?? 'center'}`} /></div>
+        <TricolorStrip client:load className="case-feature__rule" />
+      </div>
+    </Container>
+  </section>
+
+  <section class="case-story">
+    <Container>
+      <div class="case-story__index" aria-hidden="true">01</div>
+      <article><p>The challenge</p><h2>{project.challenge}</h2></article>
+      <article><p>Our response</p><h2>{project.solution}</h2></article>
+    </Container>
+  </section>
+
+  <section class="case-results">
+    <Container>
+      <header><p>Measured outcome</p><h2>What changed after the work.</h2></header>
+      <div class="case-results__grid">
+        {project.outcomes.map((outcome, index) => (
+          <article><span>0{index + 1}</span><h3>{outcome}</h3></article>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <section class="case-gallery">
+    <Container>
+      <header><p>From the site</p><h2>Details make the difference.</h2></header>
+      <div class="case-gallery__grid">
+        {project.gallery.map((image, index) => (
+          <figure class:list={[index === 0 && 'case-gallery__wide']}>
+            <img src={image.src} alt={image.alt} loading="lazy" style={`object-position:${image.position ?? 'center'}`} />
+          </figure>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <section class="case-next">
+    <Container>
+      <div class="case-next__box">
+        <div class="case-next__info">
+          <p>Next project</p>
+          <h2>{nextProject.title}</h2>
+        </div>
+        <Button href={`/projects/${nextProject.slug}`} variant="primary" size="lg">View case study</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
