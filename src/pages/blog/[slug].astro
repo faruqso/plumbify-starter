@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Button from '../../components/Button.tsx';
+import TricolorStrip from '../../components/TricolorStrip';
+import { blogPosts } from '../../data/blog';
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+// Get 3 other posts for recommendation
+const recommendedPosts = blogPosts
+  .filter((p) => p.slug !== post.slug)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={`${post.title} | Plumbify Blog`}
+  description={post.excerpt}
+  pageClass="blog-detail-page"
+  headerTopTone="dark"
+>
+  <article class="blog-post">
+    <!-- Redesigned Hero Section (Matches Brand Style) -->
+    <section class="blog-post-hero interactive-grid-hero">
+      <Container>
+        <div class="blog-post-hero__topline">
+          <a class="blog-post-hero__back" href="/blog">
+            <span aria-hidden="true">←</span> Back to blog
+          </a>
+          <span>{post.category}</span>
+        </div>
+        <div class="blog-post-hero__grid">
+          <div class="blog-post-hero__copy">
+            <div class="blog-post-hero__meta">
+              <span>{post.date}</span>
+              <span class="blog-post-hero__bullet">•</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h1>{post.title}</h1>
+            <p class="blog-post-hero__subtitle">{post.excerpt}</p>
+            
+            <div class="blog-post-hero__author">
+              <img src={post.author.avatar} alt={post.author.name} />
+              <div>
+                <strong>{post.author.name}</strong>
+                <span>{post.author.role}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="blog-post-hero__visual" data-strip-trigger>
+            <div class="blog-post-hero__image">
+              <img src={post.image} alt={post.title} />
+            </div>
+            <TricolorStrip client:load className="blog-post-hero__rule" />
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Post Content Body -->
+    <section class="blog-post__content">
+      <Container>
+        <div class="blog-post__body-wrapper">
+          <div class="blog-post__body" set:html={post.body} />
+        </div>
+      </Container>
+    </section>
+  </article>
+
+  <!-- Recommended Reading Section -->
+  {recommendedPosts.length > 0 && (
+    <section class="blog-post__recommended">
+      <Container>
+        <header class="blog-post__recommended-header">
+          <h2>Recommended Reading</h2>
+          <p>More home maintenance guides and tips from Plumbify.</p>
+        </header>
+        
+        <div class="blog-grid">
+          {recommendedPosts.map((recommended) => (
+            <article class="blog-grid-card">
+              <div class="blog-grid-card__image">
+                <img src={recommended.image} alt={recommended.title} loading="lazy" />
+                <span class="blog-grid-card__category">{recommended.category}</span>
+              </div>
+              <div class="blog-grid-card__content">
+                <div class="blog-grid-card__meta">
+                  <span>{recommended.date}</span>
+                  <span class="blog-grid-card__bullet">•</span>
+                  <span>{recommended.readTime}</span>
+                </div>
+                <h3>{recommended.title}</h3>
+                <p>{recommended.excerpt}</p>
+                <div class="blog-grid-card__footer">
+                  <div class="blog-grid-card__author">
+                    <img src={recommended.author.avatar} alt={recommended.author.name} />
+                    <div>
+                      <strong>{recommended.author.name}</strong>
+                      <span>{recommended.author.role}</span>
+                    </div>
+                  </div>
+                  <div class="blog-grid-card__link">
+                    Read <span aria-hidden="true">→</span>
+                  </div>
+                </div>
+              </div>
+              <a href={`/blog/${recommended.slug}`} class="blog-grid-card__hit-area" aria-label={`Read ${recommended.title}`}></a>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- Final CTA Section -->
+  <section class="blog-cta">
+    <Container>
+      <div class="blog-cta__box">
+        <h2>Experiencing plumbing issues in your home?</h2>
+        <p>Do not wait for a small leak to become a major flood. Our expert technicians are available today.</p>
+        <div class="blog-cta__buttons">
+          <Button href="/#request-service-form" variant="primary" size="lg">Request Service</Button>
+          <Button href="/services" variant="outline" size="lg">Our Services</Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
