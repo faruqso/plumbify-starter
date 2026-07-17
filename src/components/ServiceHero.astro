@@ -1,0 +1,39 @@
+---
+import Button from './Button.tsx';
+import Container from './Container.astro';
+import TricolorStrip from './TricolorStrip.tsx';
+import type { Service } from '../data/services';
+
+type Props = { service: Service };
+const { service } = Astro.props;
+---
+
+<section class="service-detail-hero interactive-grid-hero">
+  <Container>
+    <div class="service-detail-hero__topline">
+      <a class="service-detail-hero__back" href="/services"><span aria-hidden="true">←</span> Services</a>
+      <span>{service.shortTitle}</span>
+    </div>
+    <div class="service-detail-hero__grid">
+      <div class="service-detail-hero__copy">
+        <p class="service-detail-hero__eyebrow">{service.heroLabel}</p>
+        <h1>{service.heroHeadline}</h1>
+        <p>{service.summary}</p>
+        <div class="service-detail-hero__actions">
+          <Button href="/#request-service-form" variant="primary" size="lg">Request this service</Button>
+          <Button href="tel:+15550101444" variant="secondary" size="lg">Call Plumbify</Button>
+        </div>
+      </div>
+      <div class="service-detail-hero__visual" data-strip-trigger>
+        <div class="service-detail-hero__image">
+          <img src={service.heroImage} alt={`${service.title} by Plumbify`} style={`object-position:${service.heroImagePosition ?? 'center'}`} />
+          <div class="service-detail-hero__price">
+            <span>Starts at</span>
+            <strong>{service.price}</strong>
+          </div>
+        </div>
+        <TricolorStrip client:load className="service-detail-hero__rule" />
+      </div>
+    </div>
+  </Container>
+</section>
