@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.tsx';
+import Container from '../../components/Container.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ServicesHeroParallax from '../../components/ServicesHeroParallax.tsx';
+import { services } from '../../data/services';
+---
+
+<BaseLayout
+  title="Plumbing Services | Plumbify"
+  description="Explore Plumbify plumbing services, from water heater repair and leak detection to drain care, pipe replacement, bathroom plumbing, and diagnostics."
+  pageClass="services-index-page"
+  headerTopTone="light"
+>
+  <ServicesHeroParallax client:load />
+
+  <section id="all-services" class="services-index-list">
+    <Container>
+      <header>
+        <p>All services</p>
+        <h2>Seven focused ways we keep water moving.</h2>
+      </header>
+      <div class="services-index-grid">
+        {services.map((service, index) => (
+          <ServiceCard
+            image={service.homepageImage}
+            imageAlt={service.homepageImageAlt}
+            imageLoading={index < 2 ? 'eager' : 'lazy'}
+            imageFetchPriority={index < 2 ? 'high' : 'auto'}
+            title={service.cardTitle}
+            description={service.description}
+            price={service.price}
+            href={`/services/${service.slug}`}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
