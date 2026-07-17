@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceBenefits from '../../components/ServiceBenefits.astro';
+import ServiceCTASection from '../../components/ServiceCTASection.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import ImageStorySection from '../../components/ImageStorySection.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import ServiceHero from '../../components/ServiceHero.astro';
+import ServiceStorySection from '../../components/ServiceStorySection.astro';
+import { services } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+---
+
+<BaseLayout
+  title={`${service.title} | Plumbify Services`}
+  description={service.summary}
+  pageClass="service-detail-page"
+  headerTopTone="light"
+>
+  <ServiceHero service={service} />
+  <ServiceStorySection service={service} />
+  <ProcessSteps steps={service.process} />
+  <ServiceBenefits benefits={service.benefits} />
+  <ImageStorySection images={service.gallery} />
+  <FAQSection faqs={service.faqs} />
+  <ServiceCTASection service={service} />
+</BaseLayout>
