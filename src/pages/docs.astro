@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+---
+
+<BaseLayout title="Docs" description="Working notes for the Day 3 plumbing starter.">
+  <Container class="stack">
+    <section class="panel panel--padded stack">
+      <p class="eyebrow">Docs</p>
+      <h1>Implementation notes and workflow.</h1>
+      <p class="lede">
+        Use this page to track how the starter evolves from a blank shell into the full plumbing site.
+      </p>
+    </section>
+  </Container>
+
+  <Section eyebrow="Workflow" title="How we will build">
+    <div class="grid grid--two">
+      <Card
+        meta="1"
+        title="Homepage first"
+        description="The homepage defines the visual language and becomes the reference for the rest of the site."
+      />
+      <Card
+        meta="2"
+        title="Design system from patterns"
+        description="Tokens and components are derived from repeated homepage patterns after the first pass."
+      />
+      <Card
+        meta="3"
+        title="Scale out"
+        description="Once the core system is clear, apply it to service pages, content pages, and forms."
+      />
+      <Card
+        meta="4"
+        title="Add CMS later"
+        description="Keep content architecture minimal now so CMS fields can be added after the design settles."
+      />
+    </div>
+  </Section>
+
+  <Section eyebrow="Notes" title="What belongs here later">
+    <div class="panel panel--padded legal">
+      <ul>
+        <li>Homepage implementation decisions.</li>
+        <li>Token values and component rules.</li>
+        <li>Content model notes for the CMS-ready structure.</li>
+        <li>Any build constraints or accessibility requirements.</li>
+      </ul>
+    </div>
+  </Section>
+</BaseLayout>
