@@ -1,0 +1,12 @@
+---
+const { label, type = 'text', name, placeholder = '', rows = 4, hideLabel = false } = Astro.props;
+---
+
+<label class="field" for={name}>
+  <span class:list={hideLabel && 'sr-only'}>{label}</span>
+  {type === 'textarea' ? (
+    <textarea id={name} name={name} rows={rows} placeholder={placeholder}></textarea>
+  ) : (
+    <input id={name} name={name} type={type} placeholder={placeholder} />
+  )}
+</label>
