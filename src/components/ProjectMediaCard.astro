@@ -1,0 +1,74 @@
+---
+import TricolorStrip from './TricolorStrip.tsx';
+import IconButton from './IconButton.tsx';
+import Button from './Button.tsx';
+
+const {
+  project,
+  class: className = '',
+  showMeta = false,
+  eager = false
+} = Astro.props;
+---
+
+<article
+  class:list={['project-media-card', showMeta && 'project-media-card--detailed', className]}
+  data-strip-trigger
+  data-project-card
+  data-project-title={project.title}
+  data-project-summary={project.summary}
+>
+  <div class="project-media-card__image">
+    <img
+      src={project.image}
+      alt={`${project.title} project`}
+      loading={eager ? 'eager' : 'lazy'}
+      style={`object-position:${project.imagePosition ?? 'center'}`}
+    />
+    <a class="project-media-card__hit-area" href={`/projects/${project.slug}`} aria-label={`View ${project.title} case study`}></a>
+    <IconButton
+      href={`/projects/${project.slug}`}
+      iconSrc="/images/icons/project-arrow.svg"
+      label={`View ${project.title} case study`}
+      className="project-media-card__arrow"
+      size="md"
+    />
+  </div>
+  <TricolorStrip client:load className="project-media-card__rule" />
+  {showMeta && (
+    <div class="project-media-card__meta">
+        <p>{project.category} · {project.location}</p>
+        <h2><a href={`/projects/${project.slug}`}>{project.title}</a></h2>
+        <Button href={`/projects/${project.slug}`} variant="secondary" size="sm" class="project-media-card__cta">
+          View case study <span class="arrow-grow" aria-hidden="true">→</span>
+        </Button>
+    </div>
+  )}
+</article>
+
+<style>
+  .project-media-card__meta h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .project-media-card__cta {
+    margin-top: 0.5rem;
+    justify-self: start;
+  }
+
+  @media (min-width: 768px) {
+    .project-media-card__cta {
+      display: none !important;
+    }
+  }
+
+  .project-media-card__cta :global(.arrow-grow) {
+    display: inline-block;
+    transition: transform 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+  }
+
+  .project-media-card__cta:hover :global(.arrow-grow) {
+    transform: scaleX(2.5) translateX(2px);
+  }
+</style>
