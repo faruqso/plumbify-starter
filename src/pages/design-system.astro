@@ -1,0 +1,454 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.tsx';
+import IconButton from '../components/IconButton.tsx';
+import Field from '../components/Field.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import FAQSectionMotion from '../components/FAQSectionMotion';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import AboutMediaMotion from '../components/AboutMediaMotion';
+import ProjectMediaCard from '../components/ProjectMediaCard.astro';
+import TestimonialArc from '../components/TestimonialArc';
+import TestimonialsMarquee from '../components/TestimonialsMarquee';
+
+const colors = [
+  ['Ink', '#191f33', '--color-header'],
+  ['Text', '#2c2e47', '--color-text'],
+  ['Plumbify blue', '#3188ff', '--color-header-accent'],
+  ['Mist', '#edf4f8', '--color-surface'],
+  ['Muted', '#868686', '--color-text-muted'],
+  ['Canvas', '#ffffff', '--color-page-bg']
+];
+
+const spaces = [1, 2, 3, 4, 6, 8, 10, 12, 16, 20, 24];
+const serviceCardImage = 'https://www.figma.com/api/mcp/asset/0ff7a61e-2b10-4ccd-8528-a395aae08f2d';
+
+const dummyFaqs = [
+  { question: 'Do you offer emergency plumbing support?', answer: 'Yes! We are available 24/7 for urgent leak, sewer, and burst pipe support.' },
+  { question: 'What is your response time?', answer: 'We typically respond to emergency calls in Springfield within 45 minutes or less.' }
+];
+
+const dummySteps = [
+  { title: 'Diagnosis & Quote', description: 'Our plumber inspects your system and provides a fixed-price estimate before any work starts.' },
+  { title: 'Professional Repair', description: 'We resolve your plumbing issue cleanly and efficiently using premium quality parts.' },
+  { title: 'Quality Sign-Off', description: 'We test all repairs thoroughly and clean up the work area before leaving.' }
+];
+
+const dummyProject = {
+  title: 'Commercial Pipe Upgrade',
+  slug: 'commercial-pipe-upgrade',
+  summary: 'Full main line overhaul for multi-family building.',
+  image: '/images/projects/audit-thumbnail-landscape.png',
+  category: 'Commercial plumbing',
+  location: 'Springfield'
+};
+
+const dummyTestimonials = [
+  {
+    id: '1',
+    name: 'Sarah Connor',
+    role: 'Homeowner',
+    rating: 5,
+    title: 'Outstanding Service',
+    content: 'They arrived within 30 minutes of my call and fixed the leak quickly. Highly recommend!',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: '2',
+    name: 'Michael Scott',
+    role: 'Office Manager',
+    rating: 4.8,
+    title: 'Great Commercial Partner',
+    content: 'Very professional, clean work, and transparent pricing. Will continue working with them.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80'
+  },
+  {
+    id: '3',
+    name: 'Dwight Schrute',
+    role: 'Property Owner',
+    rating: 5,
+    title: 'Extremely Thorough',
+    content: 'Did a complete water audit. Handled everything with absolute precision and no nonsense.',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150&q=80'
+  }
+];
+---
+
+<BaseLayout
+  title="Plumbify Design System"
+  description="The visible source of truth for Plumbify foundations, components, and patterns."
+  pageClass="design-system-page"
+  headerTopTone="dark"
+>
+  <section class="ds-hero-wrap">
+    <Container class="ds-hero">
+      <div class="ds-hero__content">
+        <div class="ds-hero__topline"><span class="ds-hero__dot" aria-hidden="true"></span>Plumbify system <span>·</span> v0.1</div>
+        <h1>Designed for the work that cannot wait.</h1>
+        <p>
+          A practical, expressive system for helping customers move from a plumbing problem to a
+          confident next step.
+        </p>
+        <div class="ds-actions">
+          <Button href="#foundations">Explore the system</Button>
+          <Button href="#components" variant="secondary">View components</Button>
+        </div>
+        <nav class="ds-hero__nav" aria-label="Design system sections">
+          <a href="#foundations">Foundations</a><a href="#components">Components</a><a href="#patterns">Patterns</a><a href="#governance">Governance</a>
+        </nav>
+      </div>
+      <aside class="ds-hero__panel" aria-label="System snapshot">
+        <div class="ds-hero__panel-top"><span>System snapshot</span><span class="ds-status-pill"><i></i> Ready</span></div>
+        <div class="ds-hero__metric"><strong>04</strong><span>layers that keep every page coherent</span></div>
+        <div class="ds-hero__layers"><span><b>01</b> Foundations</span><span><b>02</b> Components</span><span><b>03</b> Patterns</span><span><b>04</b> Governance</span></div>
+        <div class="ds-hero__callout"><span aria-hidden="true">✦</span><p><strong>Designed to extend.</strong> New UI earns its place by becoming a documented, reusable pattern.</p></div>
+      </aside>
+    </Container>
+  </section>
+
+  <Section class="ds-section" eyebrow="01 · Foundations" title="The decisions beneath every screen">
+    <div id="foundations" class="ds-catalogue">
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Color</p><h3>Semantic palette</h3></div><code>tokens.css</code></div>
+        <div class="ds-swatches">
+          {colors.map(([name, value, token]) => (
+            <div class="ds-swatch">
+              <div class="ds-swatch__color" style={`--swatch:${value}`}></div>
+              <strong>{name}</strong><span>{value}</span><code>{token}</code>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Typography</p><h3>Type roles</h3></div><code>Prompt · DM Sans · Manrope · Onest</code></div>
+        <div class="ds-type-specimens">
+          <div><span>Display / 64</span><p class="ds-display">Reliable plumbing, beautifully simple.</p></div>
+          <div><span>Heading / 40</span><p class="ds-heading">Built for urgent moments.</p></div>
+          <div><span>Body / 18</span><p class="ds-body">Clear language and calm interfaces help customers get the right plumber without friction.</p></div>
+          <div><span>UI / 14</span><p class="ds-ui">REQUEST A SERVICE</p></div>
+        </div>
+      </article>
+
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Spacing</p><h3>Four-point rhythm</h3></div><code>--space-1 → --space-24</code></div>
+        <div class="ds-space-scale">
+          {spaces.map((space) => <div><code>{space}</code><span style={`width:var(--space-${space})`}></span><small>{space * 4}px</small></div>)}
+        </div>
+      </article>
+
+      <div class="ds-grid ds-grid--two">
+        <article class="ds-block">
+          <div class="ds-block__head"><div><p class="ds-kicker">Shape</p><h3>Radius</h3></div><code>--radius-card</code></div>
+          <div class="ds-radius-row"><div>Card · 32 / 124</div><div>Panel · 16</div><div>Pill</div></div>
+        </article>
+        <article class="ds-block">
+          <div class="ds-block__head"><div><p class="ds-kicker">Elevation</p><h3>Surface and shadow</h3></div></div>
+          <div class="ds-elevation"><span>Raised surface</span><code>--shadow-soft</code></div>
+        </article>
+      </div>
+    </div>
+  </Section>
+
+  <Section class="ds-section ds-section--tint" eyebrow="02 · Components" title="Reusable, accessible building blocks">
+    <div id="components" class="ds-catalogue">
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Actions</p><h3>Buttons</h3></div><code>Button.tsx</code></div>
+        <p class="ds-action-intro">Every action shares the same Plumbify sweep and label motion. Color, emphasis, and intent are selected through the component variant.</p>
+        <div class="ds-demo-row">
+          <div><Button>Book a service</Button><span>Primary · booking and service cards</span></div>
+          <div><Button variant="emergency">Emergency help</Button><span>Emergency · 24/7</span></div>
+          <div><Button variant="secondary">Get an estimate</Button><span>Secondary · low pressure</span></div>
+          <div><Button variant="outline">Compare services</Button><span>Outline · tertiary action</span></div>
+          <div><Button variant="menu">Projects</Button><span>Menu · transparent stroke, 50% sweep</span></div>
+          <div><Button variant="service">Request service</Button><span>Reserved · request-service emphasis</span></div>
+          <div><IconButton iconSrc="/images/icons/hero-close-new.svg" label="Close dialog" /><span>Icon button · close</span></div>
+          <div><Button loading>Finding a plumber</Button><span>Loading · system feedback</span></div>
+          <div><Button disabled>Slots unavailable</Button><span>Disabled · unavailable</span></div>
+          <div><a class="ds-text-link" href="#components">Learn more</a><span>Text link</span></div>
+        </div>
+        <div class="ds-state-strip" aria-label="Button interaction states"><span>Hover <b>Bottom sweep + label exchange</b></span><span>Pressed <b>Settles by 1px</b></span><span>Focus <b>High-visibility ring</b></span><span>Loading <b>Progress without layout shift</b></span></div>
+      </article>
+
+      <article class="ds-block ds-block--header">
+        <div class="ds-block__head"><div><p class="ds-kicker">Navigation</p><h3>Global header</h3></div><code>SiteHeader.astro</code></div>
+        <p class="ds-action-intro">One shared header is used on every page. It stays visible while scrolling and gently collapses its contact row to keep navigation in reach.</p>
+        <SiteHeader pathname="/" preview />
+      </article>
+
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Inputs</p><h3>Form fields</h3></div><code>Field.astro</code></div>
+        
+        <p class="ds-action-intro" style="margin-bottom: 2rem;">We support two styles of inputs depending on context: standard stack fields (best for simple forms and tables) and our signature modern floating label inputs (used in high-engagement request panels).</p>
+
+        <div class="ds-grid ds-grid--two" style="gap: 2.5rem 2rem;">
+          <!-- Standard stack fields -->
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <p class="ds-kicker" style="margin-bottom: 0;">Standard stack fields</p>
+            <Field label="Full name" name="ds-name" placeholder="e.g. Ada Okafor" />
+            <Field label="Email address" name="ds-email" type="email" placeholder="ada@example.com" />
+            <Field label="How can we help?" name="ds-message" type="textarea" placeholder="Describe the plumbing issue" rows={3} />
+            <label class="field"><span>Disabled field</span><input value="Not editable" disabled /></label>
+          </div>
+
+          <!-- Signature floating fields -->
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <p class="ds-kicker" style="margin-bottom: 0;">Signature floating fields</p>
+            <div class="service-fab__panel" style="border: none; padding: 0; background: transparent; box-shadow: none; width: 100%; gap: 1.25rem;">
+              
+              <div class="fab-field has-value">
+                <div class="fab-field__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <div class="fab-field__content">
+                  <input class="fab-field__input" type="text" placeholder=" " value="Ada Okafor" />
+                  <label class="fab-field__label">Full name</label>
+                </div>
+              </div>
+
+              <div class="fab-field">
+                <div class="fab-field__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                </div>
+                <div class="fab-field__content">
+                  <input class="fab-field__input" type="email" placeholder=" " />
+                  <label class="fab-field__label">Email address</label>
+                </div>
+              </div>
+
+              <div class="fab-field has-value">
+                <div class="fab-field__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div class="fab-field__content">
+                  <input class="fab-field__input" type="tel" placeholder=" " value="+1 (555) 123-4567" />
+                  <label class="fab-field__label">Phone number</label>
+                </div>
+              </div>
+
+              <div class="fab-field is-open">
+                <div class="fab-field__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                </div>
+                <div class="fab-field__content">
+                  <div class="fab-field__input" style="line-height: 2.25rem;">Choose a service</div>
+                  <label class="fab-field__label">Service type</label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Service card</p><h3>Image-led service discovery</h3></div><code>ServiceCard.astro</code></div>
+        <p class="ds-action-intro">The default card keeps focus on the image, price, and service title. Hover or keyboard focus reveals the detail and branded service action; on touch devices the details remain visible.</p>
+        <div class="ds-service-card-demo">
+          <ServiceCard image={serviceCardImage} imageAlt="Plumber repairing a water heater" title="Hot Water Heater Fixing Services" description="Our water heater repair service involves diagnosing and fixing issues." price="$200" cta="Services Detail" href="#components" />
+          <div class="ds-service-card-notes"><p class="ds-kicker">Interaction</p><h3>Relax, reveal, respond.</h3><p>On hover the image steps back, the panel makes room, and the call to action receives a diagonal navy sweep. The same state activates with keyboard focus.</p><ul><li>Custom image ratio per instance</li><li>Persistent tricolor edge rule</li><li>Touch-safe content reveal</li></ul></div>
+        </div>
+      </article>
+
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Content</p><h3>Cards and status</h3></div><code>Card.astro</code></div>
+        <div class="ds-grid ds-grid--three">
+          <Card meta="Service" title="Leak repair" description="Fast diagnosis and a clear quote before work begins."><a class="ds-text-link" href="#patterns">View service →</a></Card>
+          <Card meta="Guidance" title="Need help choosing?" description="Tell us what you can see and we’ll route your request."><a class="ds-text-link" href="#patterns">Get guidance →</a></Card>
+          <div class="ds-status-stack">
+            <p class="ds-notice ds-notice--success"><strong>Confirmed</strong><span>Your request is booked.</span></p>
+            <p class="ds-notice ds-notice--info"><strong>Good to know</strong><span>We are available 24/7.</span></p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Interactive Accordions -->
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Accordions</p><h3>Interactive drawers</h3></div><code>FAQSectionMotion.tsx</code></div>
+        <p class="ds-action-intro">Used to present complex details, frequently asked questions, or specifications in a clean vertical stack. Uses framer-motion for smooth height and chevron rotation transitions.</p>
+        <div style="max-width: 48rem;">
+          <FAQSectionMotion faqs={dummyFaqs} client:load />
+        </div>
+      </article>
+
+      <!-- Numbered steps -->
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Process</p><h3>Numbered step rail</h3></div><code>ProcessSteps.astro</code></div>
+        <p class="ds-action-intro">A horizontal/vertical rail of numbered step-by-step guidance cards used to explain services processes clearly.</p>
+        <ProcessSteps steps={dummySteps} />
+      </article>
+
+      <!-- Media Deck & Project Card -->
+      <div class="ds-grid ds-grid--two">
+        <article class="ds-block" style="display: flex; flex-direction: column;">
+          <div class="ds-block__head"><div><p class="ds-kicker">Media Deck</p><h3>Interactive image tilt</h3></div><code>AboutMediaMotion.tsx</code></div>
+          <p class="ds-action-intro">Displays an image with our signature top-right curve and tricolor decorative footer strip, applying a smooth tilt/parallax on scroll.</p>
+          <div style="width: 100%; max-width: 20rem; margin: auto auto 0;">
+            <AboutMediaMotion image="/images/projects/audit-bathroom-check.png" imageAlt="Bathroom inspection showcase" client:load />
+          </div>
+        </article>
+
+        <article class="ds-block">
+          <div class="ds-block__head"><div><p class="ds-kicker">Project Card</p><h3>Portfolio Grid discovery</h3></div><code>ProjectMediaCard.astro</code></div>
+          <p class="ds-action-intro">Showcases finished projects. In hover or focus, the image steps back and a customized arrow button slides into view.</p>
+          <div style="width: 100%; max-width: 20rem; margin: 0 auto;">
+            <ProjectMediaCard project={dummyProject} showMeta={true} />
+          </div>
+        </article>
+      </div>
+
+      <!-- Testimonial Slider & Marquee -->
+      <article class="ds-block">
+        <div class="ds-block__head"><div><p class="ds-kicker">Social Proof</p><h3>Stacked Arc Slider & Scrolling Marquee</h3></div><code>TestimonialArc.tsx · TestimonialsMarquee.tsx</code></div>
+        <p class="ds-action-intro">We use two rich testimonials displays: a stacked-card interactive arc carousel (best for hero/highlight testimonials) and an infinite scroll marquee (best for high volume feedback).</p>
+        
+        <div class="ds-grid ds-grid--two" style="gap: 3rem 2rem; align-items: start;">
+          <div>
+            <p class="ds-kicker" style="margin-bottom: 1.5rem;">Stacked Arc Slider</p>
+            <div style="min-height: 22rem; position: relative;">
+              <TestimonialArc testimonials={dummyTestimonials} client:load />
+            </div>
+          </div>
+          <div>
+            <p class="ds-kicker" style="margin-bottom: 1.5rem;">Infinite Scroll Marquee</p>
+            <div style="background: var(--color-surface); padding: 1.5rem; border-radius: 1rem; overflow: hidden;">
+              <TestimonialsMarquee testimonials={dummyTestimonials} client:load />
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </Section>
+
+  <Section class="ds-section" eyebrow="03 · Plumbify patterns" title="Brand-specific compositions">
+    <div id="patterns" class="ds-grid ds-grid--two">
+      <article class="ds-pattern ds-pattern--dark">
+        <p class="ds-kicker">Navigation</p><strong class="ds-wordmark">Plumbify</strong>
+        <nav aria-label="Pattern preview"><a href="#patterns" class="is-active">Home</a><a href="#patterns">Services</a><a href="#patterns">Contact</a></nav>
+      </article>
+      <article class="ds-pattern ds-pattern--cta">
+        <p class="ds-kicker">Conversion card</p><h3>Need a plumber today?</h3><p>Describe the issue and we’ll connect you with the right expert.</p><Button>Request service</Button>
+      </article>
+      <article class="ds-pattern ds-pattern--service">
+        <span class="ds-icon">↗</span><div><p class="ds-kicker">Service item</p><h3>Emergency repairs</h3><p>Rapid support for leaks, bursts, and blocked drains.</p></div>
+      </article>
+      <article class="ds-pattern ds-pattern--rule">
+        <p class="ds-kicker">Extension rule</p><h3>Promote patterns, don’t duplicate them.</h3>
+        <p>When a pattern appears three times, give it semantic tokens, document its states, and promote it to a reusable Astro component.</p>
+      </article>
+    </div>
+  </Section>
+
+  <Section id="governance" class="ds-section ds-section--tint" eyebrow="04 · Governance" title="How we customize and extend it">
+    <div class="ds-grid ds-grid--three">
+      <Card meta="1 · Foundation" title="Start with a semantic token" description="New brand decisions enter tokens.css instead of being scattered as raw values." />
+      <Card meta="2 · Component" title="Define every state" description="Default, hover, focus, active, disabled, loading, and error are treated as one component contract." />
+      <Card meta="3 · Pattern" title="Document it here" description="Nothing is considered reusable until its purpose, variants, and visible example appear on this page." />
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  :global(.design-system-page) { background:#f7fafc; }
+  :global(.design-system-page .site-main) { padding-bottom:0; background:#f7fafc; }
+  .ds-hero-wrap { position:relative; overflow:hidden; color:white; background:var(--color-header); }
+  .ds-hero-wrap::before { position:absolute; top:-18rem; right:-13rem; width:40rem; height:40rem; border:1px solid rgba(255,255,255,.12); border-radius:50%; box-shadow:0 0 0 5rem rgba(255,255,255,.035),0 0 0 10rem rgba(255,255,255,.025); content:''; }
+  .ds-hero-wrap::after { position:absolute; bottom:0; left:0; width:100%; height:7px; background:linear-gradient(90deg,var(--color-action-emergency) 0 20%,var(--color-surface) 20% 45%,var(--color-header-accent) 45% 100%); content:''; }
+  :global(.ds-hero) { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(18rem,.8fr); gap:clamp(2.5rem,7vw,7rem); align-items:center; padding:calc(clamp(4rem,8vw,7rem) + var(--masthead-reserved-space)) 0 clamp(4rem,8vw,7rem); }
+  .ds-hero__content { display:grid; justify-items:start; gap:1.5rem; }
+  .ds-hero__topline { display:flex; align-items:center; gap:.55rem; color:#c9d9ef; font:700 .8rem/1 var(--font-ui); letter-spacing:.1em; text-transform:uppercase; }
+  .ds-hero__dot { width:.6rem; height:.6rem; border-radius:50%; background:var(--color-header-accent); box-shadow:0 0 0 .3rem color-mix(in srgb,var(--color-header-accent) 18%,transparent); }
+  .ds-hero h1 { max-width:10ch; color:white; font-size:clamp(3.2rem,6vw,5.7rem); letter-spacing:0; overflow-wrap:break-word; text-wrap:balance; }
+  .ds-hero__content > p { max-width:50ch; color:#c9d9ef; font-size:1.1rem; line-height:1.65; }
+  .ds-actions,.ds-demo-row { display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; }
+  :global(.ds-hero .button--primary) { --button-bg:var(--color-header-accent); --button-fg:white; --button-sweep:var(--color-header); --button-hover-fg:white; }
+  :global(.ds-hero .button--secondary) { --button-bg:rgba(255,255,255,.08); --button-fg:white; --button-sweep:var(--color-header-accent); --button-hover-fg:white; border-color:rgba(255,255,255,.55); }
+  .ds-hero__nav { display:flex; flex-wrap:wrap; gap:.25rem; margin-top:.75rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,.2); }
+  .ds-hero__nav a { padding:.5rem .75rem; color:#c9d9ef; font-size:.85rem; font-weight:700; text-decoration:none; }
+  .ds-hero__nav a:hover { color:white; }
+  .ds-hero__panel { display:grid; gap:1.5rem; padding:1.5rem; border:1px solid rgba(255,255,255,.18); border-radius:1.25rem; background:rgba(255,255,255,.075); box-shadow:0 24px 50px rgba(0,0,0,.18); backdrop-filter:blur(14px); }
+  .ds-hero__panel-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; color:#c9d9ef; font:700 .75rem/1 var(--font-ui); letter-spacing:.08em; text-transform:uppercase; }
+  .ds-status-pill { display:inline-flex; align-items:center; gap:.4rem; padding:.45rem .6rem; border-radius:999px; color:#e3f9e9; background:rgba(35,134,54,.25); letter-spacing:0; text-transform:none; }
+  .ds-status-pill i { width:.45rem; height:.45rem; border-radius:50%; background:#78e08f; }
+  .ds-hero__metric { display:grid; gap:.3rem; }
+  .ds-hero__metric strong { color:white; font:700 clamp(4rem,8vw,6rem)/.85 var(--font-display); letter-spacing:-.07em; }
+  .ds-hero__metric span { max-width:19ch; color:#c9d9ef; line-height:1.3; }
+  .ds-hero__layers { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+  .ds-hero__layers span { display:flex; gap:.5rem; align-items:center; padding:.65rem 0; border-top:1px solid rgba(255,255,255,.14); color:white; font-size:.8rem; }
+  .ds-hero__layers b { color:var(--color-header-accent); font-size:.7rem; }
+  .ds-hero__callout { display:flex; gap:.75rem; align-items:flex-start; padding:1rem; border-radius:.75rem; color:white; background:var(--color-header-accent); }
+  .ds-hero__callout > span { font-size:1.1rem; }
+  .ds-hero__callout p { color:white; font-size:.82rem; line-height:1.4; }
+  .ds-hero__callout strong { display:block; color:white; margin-bottom:.2rem; }
+  :global(.ds-section) { padding-block:clamp(4rem,8vw,7rem); }
+  :global(.ds-section--tint) { background:var(--color-surface); }
+  .ds-catalogue { display:grid; gap:1.5rem; min-width:0; max-width:100%; }
+  .ds-block { width:100%; max-width:100%; min-width:0; padding:clamp(1.25rem,3vw,2rem); border:var(--border-subtle); border-radius:var(--radius-lg); background:white; }
+  .ds-block__head { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; margin-bottom:1.75rem; }
+  .ds-block__head code,.ds-swatch code { color:var(--color-text-muted); font-size:.75rem; }
+  .ds-kicker { color:var(--color-header-accent); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+  .ds-grid { display:grid; gap:1.25rem; }
+  .ds-grid--two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ds-grid--three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .ds-swatches { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:1rem; }
+  .ds-swatch { display:grid; gap:.3rem; min-width:0; }
+  .ds-swatch__color { aspect-ratio:1; border-radius:var(--radius-md); background:var(--swatch); border:var(--border-subtle); }
+  .ds-swatch strong { font-size:.85rem; line-height:1.2; }
+  .ds-swatch span { color:var(--color-text-muted); font-size:.75rem; }
+  .ds-swatch code { overflow:hidden; text-overflow:ellipsis; }
+  .ds-type-specimens { display:grid; gap:2rem; }
+  .ds-type-specimens > div { display:grid; grid-template-columns:8rem 1fr; gap:1rem; border-top:var(--border-subtle); padding-top:1rem; }
+  .ds-type-specimens span { color:var(--color-text-muted); font-size:.75rem; }
+  .ds-display,.ds-heading,.ds-ui { color:var(--color-text); }
+  .ds-display { font:700 clamp(2.5rem,6vw,4rem)/1.05 var(--font-display); letter-spacing:-.02em; }
+  .ds-heading { font:700 clamp(1.8rem,4vw,2.5rem)/1.1 var(--font-display); }
+  .ds-body { max-width:52ch; font-size:1.125rem; }
+  .ds-ui { font:700 .875rem/1 var(--font-ui); letter-spacing:.08em; }
+  .ds-space-scale { display:grid; gap:.65rem; }
+  .ds-space-scale div { display:grid; grid-template-columns:2rem minmax(0,1fr) 3rem; align-items:center; gap:1rem; }
+  .ds-space-scale span { display:block; max-width:100%; height:.75rem; border-radius:999px; background:var(--color-header-accent); }
+  .ds-space-scale small { color:var(--color-text-muted); }
+  .ds-radius-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .ds-radius-row div { display:grid; place-items:center; min-height:7rem; color:white; background:var(--color-header); }
+  .ds-radius-row div:nth-child(1){border-radius:var(--radius-card)} .ds-radius-row div:nth-child(2){border-radius:var(--radius-lg)} .ds-radius-row div:nth-child(3){border-radius:999px}
+  .ds-elevation { display:flex; min-height:7rem; align-items:center; justify-content:space-between; gap:1rem; padding:1.25rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-soft); }
+  .ds-demo-row { gap:2rem; }
+  .ds-demo-row > div { display:grid; gap:.65rem; justify-items:start; }
+  .ds-demo-row span { color:var(--color-text-muted); font-size:.75rem; }
+  .ds-action-intro { max-width:65ch; margin:-.5rem 0 1.5rem; }
+  .ds-service-card-demo { display:grid; grid-template-columns:minmax(0,23rem) minmax(0,1fr); gap:clamp(2rem,6vw,5rem); align-items:center; }
+  .ds-service-card-notes { display:grid; gap:1rem; max-width:38rem; }
+  .ds-service-card-notes h3 { font-size:clamp(1.8rem,3vw,2.6rem); }
+  .ds-service-card-notes ul { display:grid; gap:.5rem; padding:0; margin:0; list-style:none; color:var(--color-text-muted); }
+  .ds-service-card-notes li { display:flex; align-items:center; gap:.6rem; }
+  .ds-service-card-notes li::before { width:.55rem; height:.55rem; border-radius:50%; background:var(--color-header-accent); content:''; }
+  .ds-state-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin-top:2rem; overflow:hidden; border:var(--border-subtle); border-radius:.75rem; background:var(--border-subtle); }
+  .ds-state-strip span { display:grid; gap:.3rem; padding:1rem; color:var(--color-text-muted); background:var(--color-surface); font-size:.75rem; }
+  .ds-state-strip b { color:var(--color-text); font-size:.8rem; }
+  .ds-demo-row button:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+  .ds-text-link { color:var(--color-header-accent); font-weight:700; text-underline-offset:.25em; }
+  .ds-status-stack { display:grid; gap:1rem; }
+  .ds-notice { display:grid; gap:.2rem; padding:1rem; border-left:4px solid; border-radius:.4rem; }
+  .ds-notice strong { color:var(--color-text); }
+  .ds-notice--success { border-color:#238636; background:#eefbf1; } .ds-notice--info { border-color:var(--color-header-accent); background:#eef6ff; }
+  .ds-pattern { min-height:18rem; padding:2rem; border-radius:var(--radius-lg); display:flex; flex-direction:column; justify-content:flex-end; gap:1rem; overflow:hidden; }
+  .ds-pattern--dark { color:white; background:var(--color-header); justify-content:space-between; }
+  .ds-pattern--dark .ds-kicker,.ds-pattern--dark a { color:white; }
+  .ds-wordmark { font:700 2.5rem/1 var(--font-display); }
+  .ds-pattern nav { display:flex; flex-wrap:wrap; gap:.75rem; }
+  .ds-pattern nav a { padding:.55rem .9rem; border-radius:999px; text-decoration:none; }
+  .ds-pattern nav .is-active { border:1px solid white; }
+  .ds-pattern--cta { background:var(--color-header-accent); }
+  .ds-pattern--cta h3,.ds-pattern--cta p { color:white; }
+  .ds-pattern--cta :global(.button) { align-self:flex-start; --button-bg:white; --button-fg:var(--color-header-accent); --button-sweep:var(--color-header); --button-hover-fg:white; }
+  .ds-pattern--service { flex-direction:row; align-items:flex-end; background:white; border:var(--border-subtle); }
+  .ds-icon { display:grid; flex:0 0 3.75rem; width:3.75rem; height:3.75rem; place-items:center; color:white; border-radius:50%; background:var(--color-header-accent); font-size:1.5rem; }
+  .ds-pattern--rule { background:var(--color-header-accent); }
+  .ds-pattern--rule p,.ds-pattern--rule h3 { color:white; }
+  @media(max-width:900px){ :global(.ds-hero){grid-template-columns:1fr;gap:2.5rem}.ds-hero h1{max-width:100%;font-size:clamp(3rem,10vw,5rem);line-height:1}.ds-hero__panel{max-width:38rem}.ds-swatches{grid-template-columns:repeat(4,1fr)} .ds-grid--three{grid-template-columns:1fr 1fr}.ds-service-card-demo{grid-template-columns:1fr} }
+  @media(max-width:650px){ :global(.ds-hero){padding:calc(4rem + var(--masthead-reserved-space)) 0 4rem}.ds-hero h1{font-size:clamp(2.65rem,12vw,4rem);line-height:1.04}.ds-hero__layers,.ds-state-strip{grid-template-columns:1fr 1fr}.ds-swatches{grid-template-columns:repeat(2,1fr)} .ds-grid--two,.ds-grid--three{grid-template-columns:1fr} .ds-type-specimens>div{grid-template-columns:1fr} .ds-block__head{flex-direction:column} }
+</style>
