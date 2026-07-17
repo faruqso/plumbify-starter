@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Button from '../../components/Button.tsx';
+import ProjectMediaCard from '../../components/ProjectMediaCard.astro';
+import { projects } from '../../data/projects';
+---
+
+<BaseLayout
+  title="Recent Plumbing Projects | Plumbify"
+  description="Explore recent Plumbify plumbing projects and detailed case studies."
+  pageClass="project-gallery-page"
+  headerTopTone="dark"
+>
+  <section class="project-gallery-hero">
+    <Container>
+      <div class="project-gallery-hero__eyebrow"><span></span>Selected work · 2024–2025</div>
+      <div class="project-gallery-hero__title">
+        <h1>Work that holds up <em>under pressure.</em></h1>
+        <p>From quiet residential fixes to complex commercial upgrades, every project starts with a clear diagnosis and ends with work built to last.</p>
+      </div>
+      <div class="project-gallery-hero__stats" aria-label="Project statistics">
+        <div><strong>120+</strong><span>projects delivered</span></div>
+        <div><strong>4.9</strong><span>average rating</span></div>
+        <div><strong>24/7</strong><span>response coverage</span></div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="project-gallery-list">
+    <Container>
+      <header class="project-gallery-list__head">
+        <p>Recent projects</p>
+        <h2>A closer look at how we solve.</h2>
+      </header>
+      <div class="project-gallery-grid">
+        {projects.map((project, index) => (
+          <ProjectMediaCard
+            project={project}
+            showMeta
+            eager={index < 2}
+            class={`project-gallery-grid__item${index === 0 ? ' project-gallery-grid__item--lead' : ''}`}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <section class="project-gallery-cta">
+    <Container>
+      <div>
+        <p>Have a project in mind?</p>
+        <h2>Bring us the difficult one.</h2>
+      </div>
+      <Button href="/#request-service-form" variant="primary" size="lg">Request a service</Button>
+    </Container>
+  </section>
+</BaseLayout>
