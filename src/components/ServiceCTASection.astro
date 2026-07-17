@@ -1,0 +1,19 @@
+---
+import Button from './Button.tsx';
+import Container from './Container.astro';
+import type { Service } from '../data/services';
+
+type Props = { service: Service };
+const { service } = Astro.props;
+---
+
+<section class="service-detail-cta">
+  <Container>
+    <div class="service-detail-cta__content">
+      <p>{service.shortTitle}</p>
+      <h2>Ready to request our {service.title.toLowerCase()} service?</h2>
+      <span>Clear diagnosis. Tidy work. Tested before we leave.</span>
+      <Button href="/#request-service-form" variant="primary" size="lg" className="service-detail-cta__btn">Request this service</Button>
+    </div>
+  </Container>
+</section>
