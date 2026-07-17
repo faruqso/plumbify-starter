@@ -1,0 +1,104 @@
+---
+interface Props {
+  pathname?: string;
+  preview?: boolean;
+  topTone?: 'light' | 'dark';
+}
+
+const { pathname = '/', preview = false, topTone = 'light' } = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/design-system', label: 'Design System' },
+  { href: '/docs', label: 'Docs' }
+];
+
+const isActive = (href: string) => href === '/'
+  ? pathname === '/'
+  : pathname === href || pathname.startsWith(`${href}/`);
+---
+
+<div class:list={['masthead-anchor', preview && 'masthead-anchor--preview']}>
+  <header class:list={['masthead', preview && 'masthead--preview', topTone === 'dark' && 'masthead--top-dark']}>
+    <div class="masthead__scrim" data-menu-close aria-hidden="true"></div>
+    <div class="masthead__shell">
+      <div class="masthead__bar masthead__bar--top">
+        <div class="masthead__contact">
+          <span>info@Plumbify.com</span>
+          <span class="masthead__divider" aria-hidden="true"></span>
+          <span>456 Elm Avenue, Springfield, USA</span>
+        </div>
+        <a class="masthead__phone" href="tel:+15551234567">+1 (555) 123-4567</a>
+      </div>
+
+      <div class="masthead__bar masthead__bar--bottom">
+        <a class="masthead__brand" href="/">Plumbify</a>
+        <button class="masthead__menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation" data-menu-toggle>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="masthead__nav" id="primary-navigation" aria-label="Primary">
+          {navItems.map((item) => (
+            <a class:list={isActive(item.href) && 'is-active'} href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              <span class="masthead__nav-label masthead__nav-label--default">{item.label}</span>
+              <span class="masthead__nav-label masthead__nav-label--hover" aria-hidden="true">{item.label}</span>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
+  </header>
+</div>
+
+<script>
+  const masthead = document.querySelector('.masthead:not(.masthead--preview)');
+  const menuToggle = masthead?.querySelector('[data-menu-toggle]');
+  const menuCloseTargets = masthead?.querySelectorAll('[data-menu-close], .masthead__nav a');
+
+  if (masthead && menuToggle) {
+    let scrollPos = 0;
+
+    const setMenuState = (isOpen) => {
+      masthead.classList.toggle('is-menu-open', isOpen);
+      document.documentElement.classList.toggle('has-mobile-menu', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      
+      if (isOpen) {
+        scrollPos = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPos}px`;
+        document.body.style.width = '100%';
+        document.body.style.overflowY = 'scroll'; // Prevent layout shift
+      } else {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflowY = '';
+        window.scrollTo(0, scrollPos);
+      }
+    };
+
+    menuToggle.addEventListener('click', () => {
+      setMenuState(!masthead.classList.contains('is-menu-open'));
+    });
+
+    menuCloseTargets?.forEach((target) => {
+      target.addEventListener('click', () => setMenuState(false));
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenuState(false);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 720 && masthead.classList.contains('is-menu-open')) {
+        setMenuState(false);
+      }
+    });
+  }
+</script>
