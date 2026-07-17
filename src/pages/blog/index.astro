@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Button from '../../components/Button.tsx';
+import { blogPosts } from '../../data/blog';
+
+const featuredPost = blogPosts[0];
+const remainingPosts = blogPosts.slice(1);
+---
+
+<BaseLayout
+  title="Plumbing Tips, Trends & Insights | Plumbify Blog"
+  description="Stay up-to-date with the latest plumbing tips, home maintenance guides, and product spotlights from the expert plumbers at Plumbify."
+  pageClass="blog-index-page"
+  headerTopTone="dark"
+>
+  <!-- Blog Hero Section -->
+  <section class="blog-hero">
+    <Container>
+      <div class="blog-hero__eyebrow"><span></span>Insights & Advice</div>
+      <div class="blog-hero__title-grid">
+        <h1>Our <em>Plumbify</em> Blog</h1>
+        <p>Expert plumbing tips, guides, and insights to help you maintain your home's water systems and make informed decisions.</p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Featured Post Section -->
+  {featuredPost && (
+    <section class="blog-featured">
+      <Container>
+        <div class="blog-featured__card" data-strip-trigger>
+          <div class="blog-featured__image-link">
+            <div class="blog-featured__image">
+              <img src={featuredPost.image} alt={featuredPost.title} loading="eager" />
+              <div class="blog-featured__tag">{featuredPost.category}</div>
+            </div>
+          </div>
+          <div class="blog-featured__content">
+            <div class="blog-featured__meta">
+              <span>{featuredPost.date}</span>
+              <span class="blog-featured__bullet">•</span>
+              <span>{featuredPost.readTime}</span>
+            </div>
+            <h2>{featuredPost.title}</h2>
+            <p class="blog-featured__excerpt">{featuredPost.excerpt}</p>
+            <div class="blog-featured__author">
+              <img src={featuredPost.author.avatar} alt={featuredPost.author.name} />
+              <div>
+                <strong>{featuredPost.author.name}</strong>
+                <span>{featuredPost.author.role}</span>
+              </div>
+            </div>
+            <Button href={`/blog/${featuredPost.slug}`} variant="primary" className="blog-featured__cta" tabIndex={-1}>
+              Read Article <span class="arrow-grow" aria-hidden="true">→</span>
+            </Button>
+          </div>
+          <a href={`/blog/${featuredPost.slug}`} class="blog-featured__hit-area" aria-label={`Read ${featuredPost.title}`}></a>
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- Grid of Remaining Posts -->
+  <section class="blog-grid-section">
+    <Container>
+      <header class="blog-grid-section__header">
+        <h2>Latest Articles</h2>
+        <div class="blog-grid-section__divider"></div>
+      </header>
+      
+      <div class="blog-grid">
+        {remainingPosts.map((post, index) => (
+          <article class="blog-grid-card">
+            <div class="blog-grid-card__image">
+              <img src={post.image} alt={post.title} loading="lazy" />
+              <span class="blog-grid-card__category">{post.category}</span>
+            </div>
+            <div class="blog-grid-card__content">
+              <div class="blog-grid-card__meta">
+                <span>{post.date}</span>
+                <span class="blog-grid-card__bullet">•</span>
+                <span>{post.readTime}</span>
+              </div>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
+              <div class="blog-grid-card__footer">
+                <div class="blog-grid-card__author">
+                  <img src={post.author.avatar} alt={post.author.name} />
+                  <div>
+                    <strong>{post.author.name}</strong>
+                    <span>{post.author.role}</span>
+                  </div>
+                </div>
+                <div class="blog-grid-card__link">
+                  Read <span aria-hidden="true">→</span>
+                </div>
+              </div>
+            </div>
+            <a href={`/blog/${post.slug}`} class="blog-grid-card__hit-area" aria-label={`Read ${post.title}`}></a>
+          </article>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="blog-cta">
+    <Container>
+      <div class="blog-cta__box">
+        <h2>Need help implementing these tips?</h2>
+        <p>Our expert team is available 24/7 to solve your plumbing challenges, big or small.</p>
+        <Button href="/#request-service-form" variant="primary" size="lg">Schedule a Service</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
