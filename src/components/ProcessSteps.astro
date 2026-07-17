@@ -1,0 +1,28 @@
+---
+import Container from './Container.astro';
+import type { ServiceProcessStep } from '../data/services';
+
+type Props = {
+  steps: ServiceProcessStep[];
+};
+
+const { steps } = Astro.props;
+---
+
+<section class="service-process">
+  <Container>
+    <header>
+      <p>How it works</p>
+      <h2>A calm process for stressful plumbing problems.</h2>
+    </header>
+    <div class="service-process__rail">
+      {steps.map((step, index) => (
+        <article data-strip-trigger>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>
