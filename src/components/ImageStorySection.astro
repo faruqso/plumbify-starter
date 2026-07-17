@@ -1,0 +1,26 @@
+---
+import Container from './Container.astro';
+import TricolorStrip from './TricolorStrip.tsx';
+import type { ServiceImage } from '../data/services';
+
+type Props = { images: ServiceImage[] };
+const { images } = Astro.props;
+---
+
+<section class="service-image-story">
+  <Container>
+    <header>
+      <p>Visual notes</p>
+      <h2>The work, the checks, and the finish.</h2>
+    </header>
+    <div class="service-image-story__grid">
+      {images.map((image, index) => (
+        <figure class:list={[index === 0 && 'service-image-story__lead']} data-strip-trigger>
+          <img src={image.src} alt={image.alt} loading={index === 0 ? 'eager' : 'lazy'} style={`object-position:${image.position ?? 'center'}`} />
+          <figcaption>{image.label}</figcaption>
+          <TricolorStrip client:load className="service-image-story__rule" />
+        </figure>
+      ))}
+    </div>
+  </Container>
+</section>
