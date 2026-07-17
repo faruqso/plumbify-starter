@@ -1,0 +1,132 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ServiceFab from '../components/ServiceFab.tsx';
+
+const {
+  title = 'Plumbify',
+  description = 'Reliable plumbing services from Plumbify.',
+  pageClass = '',
+  headerTopTone = 'light'
+} = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body class:list={['site-shell', pageClass]}>
+    <SiteHeader pathname={Astro.url.pathname} topTone={headerTopTone} />
+
+    <main class="site-main">
+      <slot />
+    </main>
+
+    <SiteFooter />
+
+    <ServiceFab client:load closeIcon="/images/icons/hero-close-new.svg" />
+
+    <script>
+      import Lenis from 'lenis';
+
+      let lenis: Lenis | null = null;
+
+      // Destroy previous Lenis instance before Astro swaps page contents
+      document.addEventListener('astro:before-swap', () => {
+        if (lenis) {
+          lenis.destroy();
+          lenis = null;
+        }
+      });
+
+      document.addEventListener('astro:page-load', () => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        if (!prefersReducedMotion.matches) {
+          lenis = new Lenis({
+            duration: 1.05,
+            smoothWheel: true,
+            syncTouch: false,
+            easing: (value) => 1 - Math.pow(1 - value, 4)
+          });
+
+          // Reset page scroll position on load/navigation unless targeting an anchor hash
+          if (!window.location.hash) {
+            lenis.scrollTo(0, { immediate: true });
+            window.scrollTo(0, 0);
+          }
+
+          const raf = (time) => {
+            if (lenis) {
+              lenis.raf(time);
+              window.requestAnimationFrame(raf);
+            }
+          };
+
+          window.requestAnimationFrame(raf);
+        }
+
+      const masthead = document.querySelector('.masthead:not(.masthead--preview)');
+
+      if (masthead) {
+        let frame = 0;
+
+        const updateMasthead = () => {
+          const isCondensed = masthead.classList.contains('is-condensed');
+          const shouldCondense = isCondensed ? window.scrollY > 8 : window.scrollY > 32;
+          masthead.classList.toggle('is-condensed', shouldCondense);
+          frame = 0;
+        };
+
+        const requestMastheadUpdate = () => {
+          if (!frame) frame = window.requestAnimationFrame(updateMasthead);
+        };
+
+        updateMasthead();
+        window.addEventListener('scroll', requestMastheadUpdate, { passive: true });
+      }
+
+      const gridHeroes = document.querySelectorAll('.interactive-grid-hero');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+      if (gridHeroes.length && finePointer.matches && !prefersReducedMotion.matches) {
+        gridHeroes.forEach((hero) => {
+          let frame = 0;
+          let targetX = 0;
+          let targetY = 0;
+
+          const updateGrid = () => {
+            const rect = hero.getBoundingClientRect();
+            const x = (targetX - rect.left) / rect.width - 0.5;
+            const y = (targetY - rect.top) / rect.height - 0.5;
+            hero.style.setProperty('--grid-x', `${x * 18}px`);
+            hero.style.setProperty('--grid-y', `${y * 18}px`);
+            hero.style.setProperty('--grid-tilt', `${x * 0.7}deg`);
+            frame = 0;
+          };
+
+          hero.addEventListener('pointermove', (event) => {
+            targetX = event.clientX;
+            targetY = event.clientY;
+            if (!frame) frame = window.requestAnimationFrame(updateGrid);
+          });
+          hero.addEventListener('pointerleave', () => {
+            hero.style.setProperty('--grid-x', '0px');
+            hero.style.setProperty('--grid-y', '0px');
+            hero.style.setProperty('--grid-tilt', '0deg');
+          });
+        });
+      }
+    });
+    </script>
+  </body>
+</html>
