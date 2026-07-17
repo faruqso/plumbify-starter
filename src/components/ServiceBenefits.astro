@@ -1,0 +1,27 @@
+---
+import Container from './Container.astro';
+import TricolorStrip from './TricolorStrip.tsx';
+import type { ServiceBenefit } from '../data/services';
+
+type Props = { benefits: ServiceBenefit[] };
+const { benefits } = Astro.props;
+---
+
+<section class="service-benefits">
+  <Container>
+    <div class="service-benefits__sticky">
+      <p>Why this service works</p>
+      <h2>Designed to solve the issue and protect what surrounds it.</h2>
+    </div>
+    <div class="service-benefits__cards">
+      {benefits.map((benefit, index) => (
+        <article data-strip-trigger>
+          <span>0{index + 1}</span>
+          <h3>{benefit.title}</h3>
+          <p>{benefit.description}</p>
+          <TricolorStrip client:load className="service-benefits__rule" />
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>
