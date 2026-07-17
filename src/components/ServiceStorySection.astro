@@ -1,0 +1,27 @@
+---
+import Container from './Container.astro';
+import type { Service } from '../data/services';
+
+type Props = { service: Service };
+const { service } = Astro.props;
+---
+
+<section class="service-story">
+  <Container>
+    <div class="service-story__intro">
+      <p>Service approach</p>
+      <h2>{service.storyTitle}</h2>
+    </div>
+    <div class="service-story__panel">
+      <p>{service.storyLead}</p>
+      <div class="service-story__stats">
+        {service.storyStats.map((stat) => (
+          <article>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>
