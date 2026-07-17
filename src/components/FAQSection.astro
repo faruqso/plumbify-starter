@@ -1,0 +1,18 @@
+---
+import Container from './Container.astro';
+import FAQSectionMotion from './FAQSectionMotion';
+import type { ServiceFaq } from '../data/services';
+
+type Props = { faqs: ServiceFaq[] };
+const { faqs } = Astro.props;
+---
+
+<section class="service-faq">
+  <Container>
+    <header>
+      <p>Service FAQ</p>
+      <h2>Useful answers before we arrive.</h2>
+    </header>
+    <FAQSectionMotion faqs={faqs} client:visible />
+  </Container>
+</section>
