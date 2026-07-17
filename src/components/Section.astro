@@ -1,0 +1,20 @@
+---
+import Container from './Container.astro';
+
+const { title, eyebrow, description, class: className = '' } = Astro.props;
+---
+
+<section class:list={['section', className]}>
+  <Container>
+    <div class="stack">
+      {(eyebrow || title || description) && (
+        <header class="stack">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {title && <h2>{title}</h2>}
+          {description && <p class="lede">{description}</p>}
+        </header>
+      )}
+      <slot />
+    </div>
+  </Container>
+</section>
