@@ -184,78 +184,89 @@ const blogPipe = '/images/home/about/about-pipe.svg';
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const motion = gsap.matchMedia();
+    let motion: gsap.MatchMedia;
 
-    motion.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
-      const about = document.querySelector<HTMLElement>('.about-why-transition .about');
-      const why = document.querySelector<HTMLElement>('.about-why-transition .why');
+    function initAnimation() {
+      if (motion) motion.revert();
+      motion = gsap.matchMedia();
 
-      if (!about || !why) return;
+      motion.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
+        const about = document.querySelector<HTMLElement>('.about-why-transition .about');
+        const why = document.querySelector<HTMLElement>('.about-why-transition .why');
 
-      gsap.set(why, {
-        scale: 0.8,
-        transformOrigin: '50% 0%',
-        force3D: true
-      });
+        if (!about || !why) return;
 
-      const whyImg = why.querySelector<HTMLElement>('.why__image img');
-      let parallax: gsap.core.Tween | undefined;
-      
-      if (whyImg) {
-        gsap.set(whyImg, { yPercent: -15, scale: 1.15 });
-        parallax = gsap.to(whyImg, {
-          yPercent: 15,
+        gsap.set(why, {
+          scale: 0.8,
+          transformOrigin: '50% 0%',
+          force3D: true
+        });
+
+        const whyImg = why.querySelector<HTMLElement>('.why__image img');
+        let parallax: gsap.core.Tween | undefined;
+        
+        if (whyImg) {
+          gsap.set(whyImg, { yPercent: -15, scale: 1.15 });
+          parallax = gsap.to(whyImg, {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: why,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+              invalidateOnRefresh: true
+            }
+          });
+        }
+
+        const pin = ScrollTrigger.create({
+          trigger: about,
+          start: 'top top',
+          endTrigger: why,
+          end: 'top top',
+          pin: about,
+          pinSpacing: false,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        });
+
+        const curtain = gsap.to(why, {
+          scale: 1,
           ease: 'none',
           scrollTrigger: {
             trigger: why,
             start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
+            end: 'top top',
+            scrub: 0.8,
             invalidateOnRefresh: true
           }
         });
-      }
 
-      const pin = ScrollTrigger.create({
-        trigger: about,
-        start: 'top top',
-        endTrigger: why,
-        end: 'top top',
-        pin: about,
-        pinSpacing: false,
-        anticipatePin: 1,
-        invalidateOnRefresh: true
+        return () => {
+          pin.kill();
+          curtain.scrollTrigger?.kill();
+          curtain.kill();
+          gsap.set(why, { clearProps: 'transform' });
+          
+          if (parallax) {
+            parallax.scrollTrigger?.kill();
+            parallax.kill();
+          }
+          if (whyImg) {
+            gsap.set(whyImg, { clearProps: 'transform' });
+          }
+        };
       });
+    }
 
-      const curtain = gsap.to(why, {
-        scale: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: why,
-          start: 'top bottom',
-          end: 'top top',
-          scrub: 0.8,
-          invalidateOnRefresh: true
-        }
-      });
-
-      return () => {
-        pin.kill();
-        curtain.scrollTrigger?.kill();
-        curtain.kill();
-        gsap.set(why, { clearProps: 'transform' });
-        
-        if (parallax) {
-          parallax.scrollTrigger?.kill();
-          parallax.kill();
-        }
-        if (whyImg) {
-          gsap.set(whyImg, { clearProps: 'transform' });
-        }
-      };
+    document.addEventListener('astro:page-load', initAnimation);
+    document.addEventListener('astro:before-swap', () => {
+      if (motion) motion.revert();
     });
-
-    window.addEventListener('pagehide', () => motion.revert(), { once: true });
+    window.addEventListener('pagehide', () => {
+      if (motion) motion.revert();
+    }, { once: true });
   </script>
 
   <section class="services" id="services">
@@ -338,6 +349,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
           <div class="project-mobile-info">
             <h3>{projects[0].title}</h3>
             <p>{projects[0].summary}</p>
+            <Button href={`/projects/${projects[0].slug}`} variant="text" size="sm" class="project-mobile-info__cta" label="View case study →" />
           </div>
         </div>
         <div class="projects__tile projects__tile--feature">
@@ -345,6 +357,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
           <div class="project-mobile-info">
             <h3>{projects[1].title}</h3>
             <p>{projects[1].summary}</p>
+            <Button href={`/projects/${projects[1].slug}`} variant="text" size="sm" class="project-mobile-info__cta" label="View case study →" />
           </div>
         </div>
         <div class="projects__tile projects__tile--small">
@@ -352,6 +365,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
           <div class="project-mobile-info">
             <h3>{projects[2].title}</h3>
             <p>{projects[2].summary}</p>
+            <Button href={`/projects/${projects[2].slug}`} variant="text" size="sm" class="project-mobile-info__cta" label="View case study →" />
           </div>
         </div>
         <div class="projects__tile projects__tile--small">
@@ -359,6 +373,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
           <div class="project-mobile-info">
             <h3>{projects[3].title}</h3>
             <p>{projects[3].summary}</p>
+            <Button href={`/projects/${projects[3].slug}`} variant="text" size="sm" class="project-mobile-info__cta" label="View case study →" />
           </div>
         </div>
       </div>
