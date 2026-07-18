@@ -39,9 +39,7 @@ const {
     <div class="project-media-card__meta">
         <p>{project.category} · {project.location}</p>
         <h2><a href={`/projects/${project.slug}`}>{project.title}</a></h2>
-        <Button href={`/projects/${project.slug}`} variant="secondary" size="sm" class="project-media-card__cta">
-          View case study <span class="arrow-grow" aria-hidden="true">→</span>
-        </Button>
+        <Button href={`/projects/${project.slug}`} variant="secondary" size="sm" class="project-media-card__cta" label="View case study →" />
     </div>
   )}
 </article>

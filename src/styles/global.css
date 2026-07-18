@@ -3962,14 +3962,18 @@ p {
 }
 
 .button:hover,
-.blog-card:hover .button {
+.blog-card:hover .button,
+.service-card--interactive:hover .button,
+.service-card--interactive:focus-within .button {
   color: var(--button-hover-fg);
   transform: none;
   box-shadow: none;
 }
 
 .button:hover::before,
-.blog-card:hover .button::before {
+.blog-card:hover .button::before,
+.service-card--interactive:hover .button::before,
+.service-card--interactive:focus-within .button::before {
   transform: translate3d(0, -30%, 0) skewY(-3.5deg);
 }
 
@@ -3995,13 +3999,17 @@ p {
 }
 
 .button:hover .button__label--default,
-.blog-card:hover .button .button__label--default {
+.blog-card:hover .button .button__label--default,
+.service-card--interactive:hover .button .button__label--default,
+.service-card--interactive:focus-within .button .button__label--default {
   opacity: 0;
   transform: translateY(-80%);
 }
 
 .button:hover .button__label--hover,
-.blog-card:hover .button .button__label--hover {
+.blog-card:hover .button .button__label--hover,
+.service-card--interactive:hover .button .button__label--hover,
+.service-card--interactive:focus-within .button .button__label--hover {
   opacity: 1;
   transform: translateY(0);
   transition-delay: 120ms;

@@ -86,7 +86,7 @@ const nextProject = projects[(projectIndex + 1) % projects.length];
           <p>Next project</p>
           <h2>{nextProject.title}</h2>
         </div>
-        <Button href={`/projects/${nextProject.slug}`} variant="primary" size="lg">View case study</Button>
+        <Button href={`/projects/${nextProject.slug}`} variant="primary" size="lg" label="View case study" />
       </div>
     </Container>
   </section>

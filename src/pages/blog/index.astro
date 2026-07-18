@@ -51,9 +51,7 @@ const remainingPosts = blogPosts.slice(1);
                 <span>{featuredPost.author.role}</span>
               </div>
             </div>
-            <Button href={`/blog/${featuredPost.slug}`} variant="primary" className="blog-featured__cta" tabIndex={-1}>
-              Read Article <span class="arrow-grow" aria-hidden="true">→</span>
-            </Button>
+            <Button href={`/blog/${featuredPost.slug}`} variant="primary" className="blog-featured__cta" tabIndex={-1} label="Read Article →" />
           </div>
           <a href={`/blog/${featuredPost.slug}`} class="blog-featured__hit-area" aria-label={`Read ${featuredPost.title}`}></a>
         </div>
@@ -110,7 +108,7 @@ const remainingPosts = blogPosts.slice(1);
       <div class="blog-cta__box">
         <h2>Need help implementing these tips?</h2>
         <p>Our expert team is available 24/7 to solve your plumbing challenges, big or small.</p>
-        <Button href="/#request-service-form" variant="primary" size="lg">Schedule a Service</Button>
+        <Button href="/#request-service-form" variant="primary" size="lg" label="Schedule a Service" />
       </div>
     </Container>
   </section>

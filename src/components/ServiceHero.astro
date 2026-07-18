@@ -20,8 +20,8 @@ const { service } = Astro.props;
         <h1>{service.heroHeadline}</h1>
         <p>{service.summary}</p>
         <div class="service-detail-hero__actions">
-          <Button href="/#request-service-form" variant="primary" size="lg">Request this service</Button>
-          <Button href="tel:+15550101444" variant="secondary" size="lg">Call Plumbify</Button>
+          <Button href="/#request-service-form" variant="primary" size="lg" label="Request this service" />
+          <Button href="tel:+15550101444" variant="secondary" size="lg" label="Call Plumbify" />
         </div>
       </div>
       <div class="service-detail-hero__visual" data-strip-trigger>

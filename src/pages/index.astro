@@ -284,7 +284,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
       </div>
 
       <div class="services__footer">
-        <Button href="/services" variant="primary">View All Services</Button>
+        <Button href="/services" variant="primary" label="View All Services" />
       </div>
     </Container>
   </section>
@@ -311,7 +311,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
             <li><img alt="" src={offerArrow} />Emergency Services Available 24/7</li>
             <li><img alt="" src={offerArrow} />Get Your Problems Solved Today!</li>
           </ul>
-          <Button href="/" variant="primary" className="offer__button">Get Offer!</Button>
+          <Button href="/" variant="primary" className="offer__button" label="Get Offer!" />
         </div>
         <TricolorStrip client:load className="offer__rule" />
       </div>
@@ -367,7 +367,7 @@ const blogPipe = '/images/home/about/about-pipe.svg';
           <h3>{projects[0].title}</h3>
           <p>{projects[0].summary}</p>
         </div>
-        <Button href="/projects" variant="primary">All projects</Button>
+        <Button href="/projects" variant="primary" label="All projects" />
       </div>
     </Container>
   </section>
@@ -491,14 +491,14 @@ const blogPipe = '/images/home/about/about-pipe.svg';
               <p class="blog-card__date">{post.date}</p>
               <h3>{post.title}</h3>
               <p>{post.excerpt}</p>
-              <Button href={`/blog/${post.slug}`} variant="outline" size="sm" className="blog-card__button" tabIndex={-1}>Read More</Button>
+              <Button href={`/blog/${post.slug}`} variant="outline" size="sm" className="blog-card__button" tabIndex={-1} label="Read More" />
             </div>
             <a href={`/blog/${post.slug}`} class="blog-card__hit-area" aria-label={`Read more about ${post.title}`}></a>
           </article>
         ))}
       </div>
       <div class="blog__footer">
-        <Button href="/blog" variant="primary">View All Blogs</Button>
+        <Button href="/blog" variant="primary" label="View All Blogs" />
       </div>
     </Container>
   </section>

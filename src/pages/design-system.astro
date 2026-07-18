@@ -94,8 +94,8 @@ const dummyTestimonials = [
           confident next step.
         </p>
         <div class="ds-actions">
-          <Button href="#foundations">Explore the system</Button>
-          <Button href="#components" variant="secondary">View components</Button>
+          <Button href="#foundations" label="Explore the system" />
+          <Button href="#components" variant="secondary" label="View components" />
         </div>
         <nav class="ds-hero__nav" aria-label="Design system sections">
           <a href="#foundations">Foundations</a><a href="#components">Components</a><a href="#patterns">Patterns</a><a href="#governance">Governance</a>
@@ -160,15 +160,15 @@ const dummyTestimonials = [
         <div class="ds-block__head"><div><p class="ds-kicker">Actions</p><h3>Buttons</h3></div><code>Button.tsx</code></div>
         <p class="ds-action-intro">Every action shares the same Plumbify sweep and label motion. Color, emphasis, and intent are selected through the component variant.</p>
         <div class="ds-demo-row">
-          <div><Button>Book a service</Button><span>Primary · booking and service cards</span></div>
-          <div><Button variant="emergency">Emergency help</Button><span>Emergency · 24/7</span></div>
-          <div><Button variant="secondary">Get an estimate</Button><span>Secondary · low pressure</span></div>
-          <div><Button variant="outline">Compare services</Button><span>Outline · tertiary action</span></div>
-          <div><Button variant="menu">Projects</Button><span>Menu · transparent stroke, 50% sweep</span></div>
-          <div><Button variant="service">Request service</Button><span>Reserved · request-service emphasis</span></div>
+          <div><Button label="Book a service" /><span>Primary · booking and service cards</span></div>
+          <div><Button variant="emergency" label="Emergency help" /><span>Emergency · 24/7</span></div>
+          <div><Button variant="secondary" label="Get an estimate" /><span>Secondary · low pressure</span></div>
+          <div><Button variant="outline" label="Compare services" /><span>Outline · tertiary action</span></div>
+          <div><Button variant="menu" label="Projects" /><span>Menu · transparent stroke, 50% sweep</span></div>
+          <div><Button variant="service" label="Request service" /><span>Reserved · request-service emphasis</span></div>
           <div><IconButton iconSrc="/images/icons/hero-close-new.svg" label="Close dialog" /><span>Icon button · close</span></div>
-          <div><Button loading>Finding a plumber</Button><span>Loading · system feedback</span></div>
-          <div><Button disabled>Slots unavailable</Button><span>Disabled · unavailable</span></div>
+          <div><Button loading label="Finding a plumber" /><span>Loading · system feedback</span></div>
+          <div><Button disabled label="Slots unavailable" /><span>Disabled · unavailable</span></div>
           <div><a class="ds-text-link" href="#components">Learn more</a><span>Text link</span></div>
         </div>
         <div class="ds-state-strip" aria-label="Button interaction states"><span>Hover <b>Bottom sweep + label exchange</b></span><span>Pressed <b>Settles by 1px</b></span><span>Focus <b>High-visibility ring</b></span><span>Loading <b>Progress without layout shift</b></span></div>
@@ -331,7 +331,7 @@ const dummyTestimonials = [
         <nav aria-label="Pattern preview"><a href="#patterns" class="is-active">Home</a><a href="#patterns">Services</a><a href="#patterns">Contact</a></nav>
       </article>
       <article class="ds-pattern ds-pattern--cta">
-        <p class="ds-kicker">Conversion card</p><h3>Need a plumber today?</h3><p>Describe the issue and we’ll connect you with the right expert.</p><Button>Request service</Button>
+        <p class="ds-kicker">Conversion card</p><h3>Need a plumber today?</h3><p>Describe the issue and we’ll connect you with the right expert.</p><Button label="Request service" />
       </article>
       <article class="ds-pattern ds-pattern--service">
         <span class="ds-icon">↗</span><div><p class="ds-kicker">Service item</p><h3>Emergency repairs</h3><p>Rapid support for leaks, bursts, and blocked drains.</p></div>

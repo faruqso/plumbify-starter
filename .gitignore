@@ -30,5 +30,4 @@ Thumbs.db
 *.log
 npm-debug.log*
 
-# Temporarily exclude large images for initial push
-public/images/
+.vercel
