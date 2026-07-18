@@ -3376,7 +3376,7 @@ html.has-mobile-menu .masthead {
 @media (max-width: 900px) {
   .services-parallax-hero {
     min-height: auto;
-    padding-block: 8rem 4rem;
+    padding-block: calc(var(--masthead-reserved-space) + 2rem) 4rem;
   }
   .services-parallax-hero h1 {
     font-size: clamp(3rem, 8vw, 4rem);
@@ -3411,7 +3411,7 @@ html.has-mobile-menu .masthead {
 
 @media (max-width: 600px) {
   .services-parallax-hero {
-    padding-block: 6rem 3rem;
+    padding-block: calc(var(--masthead-reserved-space) + 1rem) 3rem;
   }
   .parallax-img-wrapper {
     display: none; /* Hide all floating images on mobile to prevent overlapping text */
