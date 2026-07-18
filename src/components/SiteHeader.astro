@@ -24,7 +24,7 @@ const isActive = (href: string) => href === '/'
 <div class:list={['masthead-anchor', preview && 'masthead-anchor--preview']}>
   <header class:list={['masthead', preview && 'masthead--preview', topTone === 'dark' && 'masthead--top-dark']}>
     <div class="masthead__scrim" data-menu-close aria-hidden="true"></div>
-    <div class="masthead__shell">
+    <div class="masthead__shell u-radius-tr-5">
       <div class="masthead__bar masthead__bar--top">
         <div class="masthead__contact">
           <span>info@Plumbify.com</span>
@@ -63,13 +63,17 @@ const isActive = (href: string) => href === '/'
     let scrollPos = 0;
 
     const setMenuState = (isOpen) => {
+      if (isOpen) {
+        scrollPos = window.scrollY;
+        if (window.lenis) window.lenis.stop();
+      }
+
       masthead.classList.toggle('is-menu-open', isOpen);
       document.documentElement.classList.toggle('has-mobile-menu', isOpen);
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
       
       if (isOpen) {
-        scrollPos = window.scrollY;
         document.body.style.position = 'fixed';
         document.body.style.top = `-${scrollPos}px`;
         document.body.style.width = '100%';
@@ -80,6 +84,9 @@ const isActive = (href: string) => href === '/'
         document.body.style.width = '';
         document.body.style.overflowY = '';
         window.scrollTo(0, scrollPos);
+        if (window.lenis) {
+          window.lenis.start();
+        }
       }
     };
 

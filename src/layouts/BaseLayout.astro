@@ -52,12 +52,14 @@ const {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
         if (!prefersReducedMotion.matches) {
-          lenis = new Lenis({
+          const lenisInstance = new Lenis({
             duration: 1.05,
             smoothWheel: true,
             syncTouch: false,
             easing: (value) => 1 - Math.pow(1 - value, 4)
           });
+          lenis = lenisInstance;
+          window.lenis = lenisInstance;
 
           // Reset page scroll position on load/navigation unless targeting an anchor hash
           if (!window.location.hash) {
