@@ -60,34 +60,17 @@ const isActive = (href: string) => href === '/'
   const menuCloseTargets = masthead?.querySelectorAll('[data-menu-close], .masthead__nav a');
 
   if (masthead && menuToggle) {
-    let scrollPos = 0;
-
     const setMenuState = (isOpen) => {
       if (isOpen) {
-        scrollPos = window.scrollY;
         if (window.lenis) window.lenis.stop();
+      } else {
+        if (window.lenis) window.lenis.start();
       }
 
       masthead.classList.toggle('is-menu-open', isOpen);
       document.documentElement.classList.toggle('has-mobile-menu', isOpen);
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-      
-      if (isOpen) {
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollPos}px`;
-        document.body.style.width = '100%';
-        document.body.style.overflowY = 'scroll'; // Prevent layout shift
-      } else {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflowY = '';
-        window.scrollTo(0, scrollPos);
-        if (window.lenis) {
-          window.lenis.start();
-        }
-      }
     };
 
     menuToggle.addEventListener('click', () => {
