@@ -4060,8 +4060,9 @@ a:focus-visible {
   --button-sweep: transparent;
   --button-stroke: transparent;
   --button-hover-fg: var(--color-header-accent);
-  padding: 0;
-  height: auto;
+  padding: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
 }
 
 .button--text:hover .button__label--default,
@@ -5106,6 +5107,10 @@ a:focus-visible {
 
   .masthead__shell {
     border-radius: var(--card-radius-top-left) var(--card-radius-top-right) 0 0;
+  }
+
+  .masthead.is-menu-open {
+    padding-top: 1rem;
   }
 
   .masthead.is-menu-open .masthead__shell {
