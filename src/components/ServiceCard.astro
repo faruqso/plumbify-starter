@@ -14,6 +14,13 @@ const props = Astro.props;
     border-radius: var(--radius-card);
     background: white;
     isolation: isolate;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   }
 
   .service-card__media { position: absolute; inset: 0; overflow: hidden; background: var(--color-surface); }
@@ -38,7 +45,7 @@ const props = Astro.props;
 
   .service-card__content {
     position: absolute;
-    z-index: 1;
+    z-index: 11;
     right: 0;
     bottom: .25rem;
     left: 0;
@@ -48,12 +55,13 @@ const props = Astro.props;
     padding: 1.4rem 2rem 2rem;
     border-radius: var(--radius-card);
     background: white;
+    pointer-events: none;
   }
 
   .service-card__content h3 { max-width: 16ch; color: var(--color-text); font-family: var(--font-display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.1; overflow-wrap: break-word; text-wrap: balance; }
   .service-card__description { margin: 0; color: var(--color-text-muted); line-height: 1.55; }
   .service-card__cta-clip { overflow: hidden; }
-  .service-card__cta { min-height: 3.5rem; }
+  .service-card__cta { min-height: 3.5rem; position: relative; z-index: 20; pointer-events: auto; }
   .service-card__cta .button { width: 100%; }
 
   .service-card__rule { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; --tricolor-height: .25rem; --tricolor-pulse-scale: 3; }

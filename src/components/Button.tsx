@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'emergency' | 'service' | 'menu';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'emergency' | 'service' | 'menu' | 'text';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 type ButtonProps = {

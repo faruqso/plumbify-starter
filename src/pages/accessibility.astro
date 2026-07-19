@@ -3,13 +3,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/Container.astro';
 ---
 
-<BaseLayout title="Accessibility" description="Accessibility statement placeholder for the Day 3 plumbing starter.">
-  <Container>
-    <article class="panel panel--padded legal stack">
-      <p class="eyebrow">Legal</p>
-      <h1>Accessibility Statement</h1>
-      <p>This is placeholder legal copy for the starter. Replace it with your final accessibility statement before launch.</p>
-      <p>We are keeping the page in place so accessibility expectations are visible from the start.</p>
-    </article>
-  </Container>
+<BaseLayout title="Accessibility Statement" description="Accessibility placeholder for the Day 3 plumbing starter." headerTopTone="light" pageClass="legal-page">
+  <section class="legal-hero interactive-grid-hero">
+    <Container>
+      <div class="legal-hero__content">
+        <p class="eyebrow">Legal</p>
+        <h1>Accessibility Statement</h1>
+        <p class="lede">Last updated: July 2026</p>
+      </div>
+    </Container>
+  </section>
+
+  <section class="legal-content">
+    <Container>
+      <article class="panel panel--padded legal stack">
+        <p>This is placeholder legal copy for the starter. Replace it with your final terms before launch.</p>
+        <p>The goal is to keep the legal surface area visible while the site is still being designed.</p>
+      </article>
+    </Container>
+  </section>
 </BaseLayout>

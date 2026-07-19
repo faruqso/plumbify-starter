@@ -43,32 +43,13 @@ export default function ServiceCardMotion({
   class: className = ''
 }: ServiceCardProps) {
   const reduceMotion = useReducedMotion();
-  const [isTouch, setIsTouch] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia('(hover: hover)');
-    const update = () => setIsTouch(!media.matches);
-    update();
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
-
-  const isExpanded = isTouch || (hover && isActive);
   const motionTransition = reduceMotion ? { duration: 0 } : transition;
-  const resolvedContentTransition = reduceMotion ? { duration: 0 } : contentTransition;
 
   return (
     <article
-      className={['service-card', hover && 'service-card--interactive', className].filter(Boolean).join(' ')}
+      className={['service-card', className].filter(Boolean).join(' ')}
       data-strip-trigger
       style={{ '--service-card-image-ratio': imageAspectRatio } as React.CSSProperties}
-      onMouseEnter={() => hover && setIsActive(true)}
-      onMouseLeave={() => hover && setIsActive(false)}
-      onFocusCapture={() => hover && setIsActive(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) setIsActive(false);
-      }}
     >
       <a href={href} className="service-card__link-overlay" aria-label={`View details for ${title}`} style={{ position: 'absolute', inset: 0, zIndex: 10 }}></a>
       <div className="service-card__media">
@@ -79,7 +60,7 @@ export default function ServiceCardMotion({
             loading={imageLoading}
             fetchPriority={imageFetchPriority}
             decoding="async"
-            animate={{ scale: isExpanded ? 1 : 1.04 }}
+            whileHover={{ scale: 1.04 }}
             transition={motionTransition}
           />
         ) : (
@@ -91,22 +72,11 @@ export default function ServiceCardMotion({
         {price && <p className="service-card__price">{price}</p>}
         <h3>{title}</h3>
         {description && <p className="service-card__description">{description}</p>}
-        <motion.div
-          className="service-card__cta-clip"
-          initial={false}
-          animate={{ height: isExpanded ? 'auto' : 0, marginTop: isExpanded ? '0.25rem' : 0 }}
-          transition={resolvedContentTransition}
-          aria-hidden={!isExpanded}
-        >
-          <motion.div
-            className="service-card__cta"
-            initial={false}
-            animate={{ y: isExpanded ? 0 : 72 }}
-            transition={resolvedContentTransition}
-          >
-            <Button href={href} variant="primary" label={cta} hoverLabel={cta} tabIndex={isExpanded ? 0 : -1} />
-          </motion.div>
-        </motion.div>
+        <div className="service-card__cta-clip" style={{ marginTop: '0.25rem' }}>
+          <div className="service-card__cta">
+            <Button href={href} variant="primary" label={cta} hoverLabel={cta} tabIndex={0} />
+          </div>
+        </div>
       </div>
 
       <TricolorStrip className="service-card__rule" />

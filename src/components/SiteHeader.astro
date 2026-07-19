@@ -55,40 +55,42 @@ const isActive = (href: string) => href === '/'
 </div>
 
 <script>
-  const masthead = document.querySelector('.masthead:not(.masthead--preview)');
-  const menuToggle = masthead?.querySelector('[data-menu-toggle]');
-  const menuCloseTargets = masthead?.querySelectorAll('[data-menu-close], .masthead__nav a');
+  document.addEventListener('astro:page-load', () => {
+    const masthead = document.querySelector('.masthead:not(.masthead--preview)');
+    const menuToggle = masthead?.querySelector('[data-menu-toggle]');
+    const menuCloseTargets = masthead?.querySelectorAll('[data-menu-close], .masthead__nav a');
 
-  if (masthead && menuToggle) {
-    const setMenuState = (isOpen) => {
-      if (isOpen) {
-        if (window.lenis) window.lenis.stop();
-      } else {
-        if (window.lenis) window.lenis.start();
-      }
+    if (masthead && menuToggle) {
+      const setMenuState = (isOpen) => {
+        if (isOpen) {
+          if (window.lenis) window.lenis.stop();
+        } else {
+          if (window.lenis) window.lenis.start();
+        }
 
-      masthead.classList.toggle('is-menu-open', isOpen);
-      document.documentElement.classList.toggle('has-mobile-menu', isOpen);
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
-      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    };
+        masthead.classList.toggle('is-menu-open', isOpen);
+        document.documentElement.classList.toggle('has-mobile-menu', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      };
 
-    menuToggle.addEventListener('click', () => {
-      setMenuState(!masthead.classList.contains('is-menu-open'));
-    });
+      menuToggle.addEventListener('click', () => {
+        setMenuState(!masthead.classList.contains('is-menu-open'));
+      });
 
-    menuCloseTargets?.forEach((target) => {
-      target.addEventListener('click', () => setMenuState(false));
-    });
+      menuCloseTargets?.forEach((target) => {
+        target.addEventListener('click', () => setMenuState(false));
+      });
 
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setMenuState(false);
-    });
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setMenuState(false);
+      });
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 720 && masthead.classList.contains('is-menu-open')) {
-        setMenuState(false);
-      }
-    });
-  }
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 720 && masthead.classList.contains('is-menu-open')) {
+          setMenuState(false);
+        }
+      });
+    }
+  });
 </script>

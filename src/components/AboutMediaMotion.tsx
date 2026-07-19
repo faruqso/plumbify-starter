@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform, useMotionTemplate } from 'motion/react';
 import { useRef } from 'react';
 import TricolorStrip from './TricolorStrip';
 
@@ -19,11 +19,9 @@ export default function AboutMediaMotion({ image, imageAlt }: AboutMediaMotionPr
   const scale = useTransform(scrollYProgress, [0, 0.34, 1], [0.97, 1, 1]);
   const imageScale = useTransform(scrollYProgress, [0, 0.34, 1], [1.08, 1, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.24, 1], [0.58, 1, 1]);
-  const topRightRadius = useTransform(
-    scrollYProgress,
-    [0, 0.34, 1],
-    ['64px', '124px', '124px']
-  );
+  
+  const radiusMultiplier = useTransform(scrollYProgress, [0, 0.34, 1], [0.5, 1, 1]);
+  const topRightRadius = useMotionTemplate`calc(var(--card-radius-top-right) * ${radiusMultiplier})`;
 
   return (
     <motion.div
@@ -35,9 +33,9 @@ export default function AboutMediaMotion({ image, imageAlt }: AboutMediaMotionPr
       <motion.div
         className="about__image"
         style={{
-          borderTopLeftRadius: '32px',
-          borderTopRightRadius: reduceMotion ? '124px' : topRightRadius,
-          scale: reduceMotion ? undefined : imageScale
+          scale: reduceMotion ? undefined : imageScale,
+          borderTopLeftRadius: 'var(--card-radius-top-left)',
+          borderTopRightRadius: reduceMotion ? undefined : topRightRadius
         }}
       >
         <img alt={imageAlt} src={image} />

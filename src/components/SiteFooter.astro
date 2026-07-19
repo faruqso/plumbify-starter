@@ -19,14 +19,17 @@ const socialLinks = [
   }
 ];
 
+import { services } from '../data/services';
+
 const navigationLinks = [
   { href: '/', label: 'Home' },
   { href: '/#about', label: 'About Us' },
-  { href: '/#services', label: 'Our Services' },
-  { href: '/projects', label: 'Projects' }
+  { href: '/services', label: 'Our Services' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' }
 ];
 
-const serviceLinks = ['Leak Detection', 'Drain Cleaning', 'Pipe Repair', 'Pipe Replacement'];
+const serviceLinks = services.slice(0, 4);
 ---
 
 <footer class="site-footer">
@@ -55,7 +58,7 @@ const serviceLinks = ['Leak Detection', 'Drain Cleaning', 'Pipe Repair', 'Pipe R
       <div class="site-footer__column">
         <h2>Services</h2>
         <ul>
-          {serviceLinks.map((item) => <li>{item}</li>)}
+          {serviceLinks.map((service) => <li><a href={`/services/${service.slug}`}>{service.shortTitle}</a></li>)}
         </ul>
       </div>
 
